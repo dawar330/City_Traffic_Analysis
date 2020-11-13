@@ -1,0 +1,43 @@
+import React from "react";
+import {useSubheader} from "../../_metronic/layout";
+import { WardenResponsibilityWidget } from "../Components/Widgets/WardenResponsibilityWidget";
+import {connect} from 'react-redux';
+import firebase from "../../config/fbConfig";
+import { compose } from "redux";
+
+
+ const WardenResponsibilitiesPage = () => {
+  const suhbeader = useSubheader();
+  suhbeader.setTitle("My Custom title");
+  
+  const [VardenDuties, setVardenDuties] = React.useState([])
+
+  const ref = firebase.firestore().collection("VardenDuties");
+  React.useEffect(() => {
+    ref.onSnapshot((querySnapshot) => {
+      const items = [];
+      querySnapshot.forEach((doc) => {
+        items.push({...doc.data(),id:doc.id});
+      })
+      setVardenDuties(items);
+    })
+  })
+  return (
+    <div className="row">
+    <div className="col-lg-12">
+                    <WardenResponsibilityWidget Duties={VardenDuties} className="card-stretch gutter-b" />
+                </div>
+                </div>
+  );
+}
+const mapStateToProps = (state) => {
+  return {
+    Duties: state.firestore.ordered.VardenDuties
+    
+  }
+}
+export default compose(
+  
+  connect(mapStateToProps)
+)
+(WardenResponsibilitiesPage)
