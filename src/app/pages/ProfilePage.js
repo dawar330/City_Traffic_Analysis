@@ -29,12 +29,13 @@ return (<div className="row">
               </div>);
 };
 const mapStateToProps = (state) => {
+console.log(state)
   return {
     profiles: state.firestore.ordered.Vardens
     
   }
 }
-export default compose(
+export default 
   
-  connect(mapStateToProps)
-  ) (ProfilePage)
+  connect(mapStateToProps, null)
+   (ProfilePage)

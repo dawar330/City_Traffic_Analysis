@@ -9,7 +9,7 @@ import { firebaseReducer } from "react-redux-firebase";
 
 export const rootReducer = combineReducers({
   
-  authenication: authreduceder,
+  auth: authreduceder,
   profiles: wardenreducer,
   Duties: VardenDutiesReducer,
   firebase: firebaseReducer,

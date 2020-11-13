@@ -1,7 +1,7 @@
 export const Signin = (crds) => {
     
     return(dispatch , getstate , {getFirebase , getFirestore}) => {
-        console.log('signingin')
+        
         const firebase = getFirebase();
     
     firebase.auth().signInWithEmailAndPassword(
@@ -10,6 +10,10 @@ export const Signin = (crds) => {
 
     ).then(()=>{
         dispatch({ type: "login_Succes", crds});
+        }).catch((err)=>{
+            
+            dispatch({ type: "login_Error", err});
+      
         })
     
 }

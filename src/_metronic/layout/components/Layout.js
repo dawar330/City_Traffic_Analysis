@@ -10,7 +10,6 @@ import {Footer} from "./footer/Footer";
 import {LayoutInit} from "./LayoutInit";
 import {ScrollTop} from "./extras/ScrollTop";
 
-
 export function Layout({ children }) {
     const uiService = useHtmlClassService();
     // Layout settings (cssClasses/cssAttributes)
@@ -68,6 +67,7 @@ export function Layout({ children }) {
                 </div>
                 {/*end::Page*/}
             </div>
+           
 
             
             <ScrollTop/>

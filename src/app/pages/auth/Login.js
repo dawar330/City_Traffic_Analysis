@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
-
 import { Signin } from "../../../redux/actions/authActions";
-
+;
 /*
   INTL (i18n) docs:
   https://github.com/formatjs/react-intl/blob/master/docs/Components.md#formattedmessage
@@ -22,6 +21,7 @@ const initialValues = {
 };
 
 function Login(props) {
+  
 
   const [loading, setLoading] = useState(false);
   const LoginSchema = Yup.object().shape({
@@ -44,6 +44,7 @@ function Login(props) {
     setLoading(false);
   };
 
+
   const getInputClasses = (fieldname) => {
     if (formik.touched[fieldname] && formik.errors[fieldname]) {
       return "is-invalid";
@@ -62,9 +63,13 @@ function Login(props) {
     onSubmit: (values) => {
       enableLoading();
       setTimeout(() => {
-        Signin(values)
+        console.log("Sign in pressed")
+        props.Signin(values)
+        
           
       }, 1000);
+      disableLoading();
+     
     },
   });
 
@@ -81,7 +86,7 @@ function Login(props) {
 
       {/*begin::Form*/}
       <form
-        
+        onSubmit={formik.handleSubmit}
         className="form fv-plugins-bootstrap fv-plugins-framework"
       >
         {formik.status ? (
@@ -155,7 +160,13 @@ function Login(props) {
 
 const mapDispatchToProps = (dispatch) => {
   return{
-    Signin: (crds) => dispatch(Signin(crds))
+    Signin: (Values) => dispatch(Signin(Values))
   }
 }
-export default connect(null, mapDispatchToProps)(Login);
+const mapStateToProps = (state) => {
+console.log(state)
+  return{
+ 
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

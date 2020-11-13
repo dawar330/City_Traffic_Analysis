@@ -1,5 +1,5 @@
 import React from "react";
-
+import { connect } from "react-redux";
 import TrafficStatsWidget from "../Widgets/TrafficStatsWidget";
 import HourlyTrafficWidget from "../Widgets/HourlyTrafficWidget";
 import CurrentCongesstionWidget from "../Widgets/CurrentCongesstionWidget";
@@ -35,3 +35,10 @@ export function Dashboard() {
 
     </>);
 }
+const mapStateToProps = (state) => {
+    console.log(state)
+    return{
+      
+    }
+  }
+  export default connect(mapStateToProps, null)(Dashboard)

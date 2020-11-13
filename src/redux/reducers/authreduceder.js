@@ -1,11 +1,12 @@
 
 const initState = {
     
+    
 }
   const authreducer = (state = initState, action) => {
     switch (action.type) {
         case 'login_Succes':
-            console.log("Logged_in")
+           
             return {
                 ...state,
                 autherror: null
