@@ -111,7 +111,16 @@ export function UserNotificationsDropdown() {
                         Events
                       </Nav.Link>
                     </Nav.Item>
-                    
+                    <Nav.Item as="li">
+                      <Nav.Link
+                        eventKey="Logs"
+                        className={`nav-link show ${
+                          key === "Logs" ? "active" : ""
+                        }`}
+                      >
+                        Logs
+                      </Nav.Link>
+                    </Nav.Item>
                   </Nav>
 
                   <Tab.Content className="tab-content">
@@ -126,7 +135,7 @@ export function UserNotificationsDropdown() {
                             <span className="symbol-label">
                               <SVG
                                 src={toAbsoluteUrl(
-                                  "/media/svg/icons/General/Attachment2.svg"
+                                  "/media/svg/icons/Home/Library.svg"
                                 )}
                                 className="svg-icon-lg svg-icon-primary"
                               ></SVG>
@@ -137,20 +146,42 @@ export function UserNotificationsDropdown() {
                               href="#"
                               className="text-dark text-hover-primary mb-1 font-size-lg"
                             >
-                              F7
+                              Briviba SaaS
                             </a>
                             <span className="text-muted">
-                              Congestion 50% , Total Car 980
+                              PHP, SQLite, Artisan CLIмм
                             </span>
                           </div>
                         </div>
-
+                        <div className="d-flex align-items-center mb-6">
+                          <div className="symbol symbol-40 symbol-light-warning mr-5">
+                            <span className="symbol-label">
+                              <SVG
+                                src={toAbsoluteUrl(
+                                  "/media/svg/icons/Communication/Write.svg"
+                                )}
+                                className="svg-icon-lg svg-icon-warning"
+                              ></SVG>
+                            </span>
+                          </div>
+                          <div className="d-flex flex-column font-weight-bold">
+                            <a
+                              href="#"
+                              className="text-dark-75 text-hover-primary mb-1 font-size-lg"
+                            >
+                              Briviba SaaS
+                            </a>
+                            <span className="text-muted">
+                              PHP, SQLite, Artisan CLIмм
+                            </span>
+                          </div>
+                        </div>
                         <div className="d-flex align-items-center mb-6">
                           <div className="symbol symbol-40 symbol-light-success mr-5">
                             <span className="symbol-label">
                               <SVG
                                 src={toAbsoluteUrl(
-                                  "/media/svg/icons/General/Attachment2.svg"
+                                  "/media/svg/icons/Communication/Group-chat.svg"
                                 )}
                                 className="svg-icon-lg svg-icon-success"
                               ></SVG>
@@ -161,10 +192,10 @@ export function UserNotificationsDropdown() {
                               href="#"
                               className="text-dark text-hover-primary mb-1 font-size-lg"
                             >
-                              F8
+                              Briviba SaaS
                             </a>
                             <span className="text-muted">
-                            Congestion 50% , Total Car 980
+                              PHP, SQLite, Artisan CLIмм
                             </span>
                           </div>
                         </div>
@@ -184,16 +215,82 @@ export function UserNotificationsDropdown() {
                               href="#"
                               className="text-dark text-hover-primary mb-1 font-size-lg"
                             >
-                              F9
+                              Briviba SaaS
                             </a>
                             <span className="text-muted">
-                            Congestion 50% , Total Car 980
+                              PHP, SQLite, Artisan CLIмм
                             </span>
                           </div>
                         </div>
-                        
-
-                        
+                        <div className="d-flex align-items-center mb-2">
+                          <div className="symbol symbol-40 symbol-light-info mr-5">
+                            <span className="symbol-label">
+                              <SVG
+                                src={toAbsoluteUrl(
+                                  "/media/svg/icons/General/Attachment2.svg"
+                                )}
+                                className="svg-icon-lg svg-icon-info"
+                              ></SVG>
+                            </span>
+                          </div>
+                          <div className="d-flex flex-column font-weight-bold">
+                            <a
+                              href="#"
+                              className="text-dark text-hover-primary mb-1 font-size-lg"
+                            >
+                              Briviba SaaS
+                            </a>
+                            <span className="text-muted">
+                              PHP, SQLite, Artisan CLIмм
+                            </span>
+                          </div>
+                        </div>
+                        <div className="d-flex align-items-center mb-2">
+                          <div className="symbol symbol-40 symbol-light-info mr-5">
+                            <span className="symbol-label">
+                              <SVG
+                                src={toAbsoluteUrl(
+                                  "/media/svg/icons/Communication/Mail-notification.svg"
+                                )}
+                                className="svg-icon-lg svg-icon-info"
+                              ></SVG>
+                            </span>
+                          </div>
+                          <div className="d-flex flex-column font-weight-bold">
+                            <a
+                              href="#"
+                              className="text-dark text-hover-primary mb-1 font-size-lg"
+                            >
+                              Briviba SaaS
+                            </a>
+                            <span className="text-muted">
+                              PHP, SQLite, Artisan CLIмм
+                            </span>
+                          </div>
+                        </div>
+                        <div className="d-flex align-items-center mb-2">
+                          <div className="symbol symbol-40 symbol-light-info mr-5">
+                            <span className="symbol-label">
+                              <SVG
+                                src={toAbsoluteUrl(
+                                  "/media/svg/icons/Design/Bucket.svg"
+                                )}
+                                className="svg-icon-lg svg-icon-info"
+                              ></SVG>
+                            </span>
+                          </div>
+                          <div className="d-flex flex-column font-weight-bold">
+                            <a
+                              href="#"
+                              className="text-dark text-hover-primary mb-1 font-size-lg"
+                            >
+                              Briviba SaaS
+                            </a>
+                            <span className="text-muted">
+                              PHP, SQLite, Artisan CLIмм
+                            </span>
+                          </div>
+                        </div>
                       </PerfectScrollbar>
                     </Tab.Pane>
                     <Tab.Pane
@@ -212,7 +309,7 @@ export function UserNotificationsDropdown() {
                             </div>
                             <div className="navi-text">
                               <div className="font-weight-bold">
-                                New report has been Generated
+                                New report has been received
                               </div>
                               <div className="text-muted">23 hrs ago</div>
                             </div>
@@ -226,23 +323,9 @@ export function UserNotificationsDropdown() {
                             </div>
                             <div className="navi-text">
                               <div className="font-weight-bold">
-                                Warden ID 15 Reported a Crash 
+                                Finance report has been generated
                               </div>
                               <div className="text-muted">25 hrs ago</div>
-                            </div>
-                          </div>
-                        </a>
-
-                        <a href="#" className="navi-item">
-                          <div className="navi-link">
-                            <div className="navi-icon mr-2">
-                              <i className="flaticon2-line-chart text-success"></i>
-                            </div>
-                            <div className="navi-text">
-                              <div className="font-weight-bold">
-                                New report has been generated
-                              </div>
-                              <div className="text-muted">2 hrs ago</div>
                             </div>
                           </div>
                         </a>
@@ -254,7 +337,21 @@ export function UserNotificationsDropdown() {
                             </div>
                             <div className="navi-text">
                               <div className="font-weight-bold">
-                                New Warden is registered
+                                New order has been received
+                              </div>
+                              <div className="text-muted">2 hrs ago</div>
+                            </div>
+                          </div>
+                        </a>
+
+                        <a href="#" className="navi-item">
+                          <div className="navi-link">
+                            <div className="navi-icon mr-2">
+                              <i className="flaticon2-pin text-primary"></i>
+                            </div>
+                            <div className="navi-text">
+                              <div className="font-weight-bold">
+                                New customer is registered
                               </div>
                               <div className="text-muted">3 hrs ago</div>
                             </div>
@@ -268,7 +365,7 @@ export function UserNotificationsDropdown() {
                             </div>
                             <div className="navi-text">
                               <div className="font-weight-bold">
-                                New suggestion is posted
+                                Application has been approved
                               </div>
                               <div className="text-muted">3 hrs ago</div>
                             </div>

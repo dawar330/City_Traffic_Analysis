@@ -9,6 +9,7 @@ import {Aside} from "./aside/Aside";
 import {Footer} from "./footer/Footer";
 import {LayoutInit} from "./LayoutInit";
 import {ScrollTop} from "./extras/ScrollTop";
+import QuickUser from "../components/extras/offcanvas/QuickUser";
 
 export function Layout({ children }) {
     const uiService = useHtmlClassService();
@@ -67,6 +68,7 @@ export function Layout({ children }) {
                 </div>
                 {/*end::Page*/}
             </div>
+            <QuickUser/>
            
 
             

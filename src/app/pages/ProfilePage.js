@@ -2,7 +2,7 @@ import React from "react";
 import {VardenProfilesWidget} from "../Components/Widgets/VardenProfilesWidget";
 import {connect} from 'react-redux';
 import firebase from "../../config/fbConfig";
-import { compose } from "redux";
+
 
 
 

@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import {Modal , Button, InputGroup, FormControl} from "react-bootstrap";
+import React from "react";
+import {Modal , Button} from "react-bootstrap";
 import { connect } from "react-redux";
 import  {createDuty}  from "../../../redux/actions/DutiesActions"
 import * as Yup from 'yup'

@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import { connect } from "react-redux";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
+import { signUp } from "../../../redux/actions/authActions";
 
 
 const initialValues = {
@@ -19,6 +20,7 @@ function Registration(props) {
   const [loading, setLoading] = useState(false);
   const RegistrationSchema = Yup.object().shape({
     fullname: Yup.string()
+      .required()
       .min(3, "Minimum 3 symbols")
       .max(50, "Maximum 50 symbols")
 ,
@@ -26,14 +28,17 @@ function Registration(props) {
       .email("Wrong email format")
       .min(3, "Minimum 3 symbols")
       .max(50, "Maximum 50 symbols")
+      .required()
 ,
     username: Yup.string()
       .min(3, "Minimum 3 symbols")
       .max(50, "Maximum 50 symbols")
+      .required()
 ,
     password: Yup.string()
       .min(3, "Minimum 3 symbols")
       .max(50, "Maximum 50 symbols")
+      .required()
 ,
     changepassword: Yup.string()
 
@@ -74,6 +79,7 @@ function Registration(props) {
     validationSchema: RegistrationSchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
       enableLoading();
+      props.signUp(values);
       
     },
   });
@@ -241,5 +247,11 @@ function Registration(props) {
     </div>
   );
 }
+const mapDispatchToPros = (dispatch) => {
+  return{
+  signUp : (newUser) => dispatch(signUp(newUser))
+}
 
-export default (Registration);
+}
+
+export default connect(null,mapDispatchToPros)(Registration);

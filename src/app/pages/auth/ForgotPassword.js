@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import { connect } from "react-redux";
+
 import { Link, Redirect } from "react-router-dom";
 import * as Yup from "yup";
 
@@ -17,6 +17,7 @@ function ForgotPassword(props) {
       .email("Wrong email format")
       .min(3, "Minimum 3 symbols")
       .max(50, "Maximum 50 symbols")
+      .required()
       
   });
 

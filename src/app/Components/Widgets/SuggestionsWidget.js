@@ -8,8 +8,7 @@ import firebase from "../../../config/fbConfig";
 export function SuggestionsWidget(props) {
   const [key, setKey] = useState("Month");
   const {Suggestions} = props
-  console.log(Suggestions)
- 
+  
 
   return (
     <div className={`card card-custom card-stretch gutter-b`}>
