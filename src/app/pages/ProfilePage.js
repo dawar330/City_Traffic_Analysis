@@ -1,15 +1,21 @@
 import React from "react";
 import {VardenProfilesWidget} from "../Components/Widgets/VardenProfilesWidget";
-import {connect} from 'react-redux';
+import {connect, useSelector, shallowEqual} from 'react-redux';
 import firebase from "../../config/fbConfig";
 
 
 
 
 function  ProfilePage () {
+  const {vardenerr} = useSelector(
+    ({profiles}) => ({
+        vardenerr: profiles.vardenerr ,
+    }),
+    shallowEqual
+  );
 
   const [Vardens, setVardens] = React.useState([])
-  const ref = firebase.firestore().collection("Vardens");
+  const ref = firebase.firestore().collection("Users");
   React.useEffect(() => {
     ref.onSnapshot((querySnapshot) => {
       const items = [];
@@ -24,7 +30,7 @@ function  ProfilePage () {
 return (<div className="row">
     <div className="col-lg-12">
       {<VardenProfilesWidget Vardens={Vardens} className="card-stretch gutter-b" />} 
-                
+{vardenerr && <span style={{color: "red"}}>{vardenerr}</span>}          
               </div>
               </div>);
 };

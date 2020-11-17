@@ -9,7 +9,10 @@ const initState = {
             return state;
         case 'ADD_varden_Error':
             console.log("Varden Added error", action.err)
-            return state;
+            return {
+                ...state,
+                vardenerr : action.err.message
+            }
         default: 
             return state;
 

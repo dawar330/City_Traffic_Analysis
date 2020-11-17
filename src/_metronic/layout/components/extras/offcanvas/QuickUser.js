@@ -1,20 +1,40 @@
-/* eslint-disable no-script-url,jsx-a11y/anchor-is-valid,no-undef */
-import React from "react";
+import React, {  useState } from "react";
 import { Link } from "react-router-dom";
 import SVG from "react-inlinesvg";
 import { connect, shallowEqual, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { toAbsoluteUrl } from "../../../../_helpers";
 import { signOut } from "../../../../../redux/actions/authActions";
+import firebase from "../../../../../config/fbConfig";
+import Adminexpantionpanel from "../../../../../app/Components/ExpantionPanel/Adminexpantionpanel";
 
 function QuickUser(props) {
   const history = useHistory();
-  const {auth} = useSelector(
+  const {id} = useSelector(
     ({firebase}) => ({
-        auth: firebase.auth ,
+        id: firebase.auth ,
     }),
     shallowEqual
-); const logoutClick = () => {
+);
+const [ user , setUser] =  useState(0);
+const [ veiwadmin , setveiwadmin] =  useState(0);
+
+var docRef = firebase.firestore().collection("Users").doc(id.uid);
+const [ initials , setinitials] =  useState(0);
+docRef.get().then(function(doc) {
+  if (doc.exists) {
+    setUser(doc.data());
+    setinitials(user.FirstName[0].toUpperCase() + user.LastName[0].toUpperCase() )
+
+      
+  } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+  }
+}).catch(function(error) {
+  console.log("Error getting document:", error);
+});
+ const logoutClick = () => {
     const toggle = document.getElementById("kt_quick_user_toggle");
     if (toggle) {
       toggle.click();
@@ -33,7 +53,7 @@ function QuickUser(props) {
     >
       <div className="offcanvas-header d-flex align-items-center justify-content-between pb-5">
         <h3 className="font-weight-bold m-0">
-          User Profile
+          {user.FirstName} {user.LastName}
           <small className="text-muted font-size-sm ml-2">12 messages</small>
         </h3>
         <a
@@ -62,7 +82,7 @@ function QuickUser(props) {
             >
                
             </a>
-            <div className="text-muted mt-1">Designation</div>
+            <div className="text-muted mt-1">{user.Designation}</div>
             <div className="navi mt-2">
               <a className="navi-item cursor-pointer">
                 <span className="navi-link p-0 pb-2">
@@ -76,7 +96,7 @@ function QuickUser(props) {
                     </span>
                   </span>
                   <span className="navi-text text-muted text-hover-primary">
-                    {auth.email}
+                    {user.Email}
                   </span>
                 </span>
               </a>
@@ -94,32 +114,10 @@ function QuickUser(props) {
         </div>
 
         <div className="separator separator-dashed mt-8 mb-5" />
-
+        <Adminexpantionpanel/>
         <div className="navi navi-spacer-x-0 p-0">
-          <Link to="/user-profile" className="navi-item">
-            <div className="navi-link">
-              <div className="symbol symbol-40 bg-light mr-3">
-                <div className="symbol-label">
-                  <span className="svg-icon svg-icon-md svg-icon-success">
-                    <SVG
-                      src={toAbsoluteUrl(
-                        "/media/svg/icons/General/Notification2.svg"
-                      )}
-                    ></SVG>
-                  </span>
-                </div>
-              </div>
-              <div className="navi-text">
-                <div className="font-weight-bold">My Profile</div>
-                <div className="text-muted">
-                  Account settings and more{" "}
-                  <span className="label label-light-danger label-inline font-weight-bold">
-                    update
-                  </span>
-                </div>
-              </div>
-            </div>
-          </Link>
+          
+         
 
           <Link to="/user-profile" className="navi-item">
             <div className="navi-link">

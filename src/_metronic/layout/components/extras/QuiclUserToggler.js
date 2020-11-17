@@ -21,7 +21,7 @@ export function QuickUserToggler() {
 docRef.get().then(function(doc) {
     if (doc.exists) {
       setUser(doc.data());
-      setinitials(user.Name[0].toUpperCase())
+      setinitials(user.FirstName[0].toUpperCase() + user.LastName[0].toUpperCase() )
 
         
     } else {
@@ -56,7 +56,7 @@ docRef.get().then(function(doc) {
                   Hi,
                 </span>
                 <span className="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">
-                  {user.Name}
+                  {user.FirstName}
                 </span>
                 <span className="symbol symbol-35 symbol-light-success">
                   <span className="symbol-label font-size-h5 font-weight-bold">

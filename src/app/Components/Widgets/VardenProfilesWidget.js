@@ -45,10 +45,10 @@ export function VardenProfilesWidget(props) {
                 <tr className="text-left text-uppercase">
                   <th className="pl-7" style={{minWidth: "250px"}}><span className="text-dark-75">Wardens</span></th>
                   <th style={{minWidth: "100px"}}>Rank</th>
-                  <th style={{minWidth: "100px"}}></th>
+                  <th style={{minWidth: "100px"}}>Designation</th>
                   <th style={{minWidth: "100px"}}>Age</th>
-                  <th style={{minWidth: "130px"}}>rating</th>
                   <th style={{minWidth: "130px"}}></th>
+                  <th style={{minWidth: "130px"}}>Actions</th>
    
                 </tr>
                 </thead>
@@ -97,10 +97,7 @@ export function VardenProfilesWidget(props) {
                       </span>
                   </td>
                   <td>
-                    <img src={toAbsoluteUrl("/media/logos/stars.png")} alt="image" style={{width: "5.5rem"}}/>
-                    <span className="text-muted font-weight-bold d-block font-size-sm">
-                        Best Rated
-                      </span>
+                   
                   </td>
                   <td>
                     <Button variant="btn btn-danger font-weight-bolder font-size-sm" onClick={() => {
