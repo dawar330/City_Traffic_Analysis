@@ -8,24 +8,23 @@ import {MenuItem, TextField} from "@material-ui/core"
 import { object } from "yup";
 
  export function AssignDutiesModal(propss){
-  
+  const {Vardens} = propss
 
         return(
           <Formik
-          initialValues={{FirstName: '',LastName: '', StartTime: '', EndTime: '',Area: ''}}
+          initialValues={{Varden: '', StartTime: '', EndTime: '',Area: ''}}
           onSubmit={(values, formikHelpers)=>{
+            values.FullName = 
             console.log(values)
             propss.createDuty(values);
             propss.onHide()
           }}
           validationSchema={
             object({
-              FirstName: Yup.string()
+              Varden: Yup.string()
               
-              .required("First Name is Required"),
-              LastName: Yup.string()
+              .required("Varden is Required"),
               
-              .required("Last Name is Required"),
               StartTime: Yup.date()
               
               .required("Start Time is Required"),
@@ -49,33 +48,39 @@ Add Warden
 <Modal.Body>
 
 <Form >
-<div classname="form-group">
+<div >
 
 
-<Field name="FirstName" as={TextField} label="First Name"/><br/>
-<ErrorMessage name="FirstName"/><br/>
+<select name="Varden" className="browser-default custom-select" Label="Varden">
+<option  value={0}>Select a Varden</option>
+{Vardens && Vardens.map((Varden)=>{
+  return(
+<option key={Varden.id} value={Varden.id}>{Varden.Name}</option>
+  )
+})}
+          
+        </select><br/>
 <Field name="LastName" as={TextField} label="Last Name"/><br/>
 <ErrorMessage name="LastName"/><br/>
 <Field name="StartTime" type="datetime-local" as={TextField} label="Start Time"/><br/>
 <ErrorMessage name="StartTime"/><br/>
 <Field name="EndTime" type="datetime-local" as={TextField} label="End Time"/><br/>
 <ErrorMessage name="EndTime"/><br/>
-<Field name="Area" as={TextField} select label="Area">
-
-<MenuItem value={'F 11'}>F 11</MenuItem>
-<MenuItem value={'F 10'}>F 10</MenuItem>
-<MenuItem value={'F 9'}>F 9</MenuItem>
-<MenuItem value={'F 8'}>F 8</MenuItem>
-<MenuItem value={'F 7'}>F 7</MenuItem>
-<MenuItem value={'F 6'}>F 6</MenuItem>
-<MenuItem value={'G 10'}>G 11</MenuItem>
-<MenuItem value={'G 10'}>G 10</MenuItem>
-<MenuItem value={'G 10'}>G 9</MenuItem>
-<MenuItem value={'G 10'}>G 8</MenuItem>
-<MenuItem value={'G 10'}>G 7</MenuItem>
-<MenuItem value={'G 10'}>G 6</MenuItem>
-<MenuItem value={'E 11'}>E 11</MenuItem>
-</Field><br/>
+<select name="Area" className="browser-default custom-select" label="Area">
+<option value={'F 11'}>F 11</option>
+<option value={'F 10'}>F 10</option>
+<option value={'F 9'}>F 9</option>
+<option value={'F 8'}>F 8</option>
+<option value={'F 7'}>F 7</option>
+<option value={'F 6'}>F 6</option>
+<option value={'G 10'}>G 11</option>
+<option value={'G 10'}>G 10</option>
+<option value={'G 10'}>G 9</option>
+<option value={'G 10'}>G 8</option>
+<option value={'G 10'}>G 7</option>
+<option value={'G 10'}>G 6</option>
+<option value={'E 11'}>E 11</option>
+</select><br/>
 <ErrorMessage name="Area"/><br/>
 <Button onClick={propss.onHide}>Close</Button>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

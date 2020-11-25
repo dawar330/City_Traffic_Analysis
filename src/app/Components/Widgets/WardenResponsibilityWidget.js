@@ -4,14 +4,30 @@ import SVG from "react-inlinesvg";
 import {toAbsoluteUrl} from "../../../_metronic/_helpers";
 import {Button} from "react-bootstrap";
 import AssignDutiesModal from "../Modals/AssignDutiesModal";
-import firebase from "../../../config/fbConfig";
+import {connect, useSelector, shallowEqual} from 'react-redux';
+import {GetVardenNameid } from "../../../redux/actions/VardenActions"
+import {DeletevardenDuty, GetDuties} from "../../../redux/actions/DutiesActions"
 
 
-
-export function WardenResponsibilityWidget(props) {
+ function WardenResponsibilityWidget(props) {
     const [modalShow1, setModalShow1] = React.useState(false);
-
-    const {Duties} = props
+    React.useEffect(()=>{
+      props.GetVardenNameid()
+      props.GetDuties()
+    },[Duties])
+    const {Vardens} = useSelector(
+      ({profiles}) => ({
+          Vardens: profiles.UsersIds,
+      }),
+      shallowEqual
+  );
+    const {Duties} = useSelector(
+      ({Responsibility}) => ({
+          Duties: Responsibility.Duties,
+      }),
+      shallowEqual
+  );
+   
   return (
       <div className={`card card-custom card-stretch gutter-b`}>
         {/* Head */}
@@ -27,6 +43,7 @@ export function WardenResponsibilityWidget(props) {
       <AssignDutiesModal
         show={modalShow1}
         onHide={() => setModalShow1(false)}
+        Vardens = {Vardens}
       />  </div>
         </div>
         {/* Body */}
@@ -89,8 +106,7 @@ export function WardenResponsibilityWidget(props) {
                     </td>
                     <td>
                     <Button variant="btn btn-danger font-weight-bolder font-size-sm" onClick={() => {
-                        const db = firebase.firestore()
-                        db.collection("VardenDuties").doc(Duty.id).delete()
+                        props.DeletevardenDuty(Duty.id)
                     }} >
           Delete
         </Button>  
@@ -110,6 +126,14 @@ export function WardenResponsibilityWidget(props) {
   );
 }
 
-export default (WardenResponsibilityWidget)
+const mapdispatchtoprops = dispatch => {
+  return {
+    DeletevardenDuty: (id) => dispatch(DeletevardenDuty(id)),
+    GetVardenNameid: () => dispatch(GetVardenNameid()),
+    GetDuties: () => dispatch(GetDuties())
+  }
+}
+
+export default connect(null, mapdispatchtoprops)(WardenResponsibilityWidget)
 
 

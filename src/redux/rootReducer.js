@@ -11,7 +11,7 @@ export const rootReducer = combineReducers({
   
   auth: authreduceder,
   profiles: wardenreducer,
-  Duties: VardenDutiesReducer,
+  Responsibility: VardenDutiesReducer,
   firebase: firebaseReducer,
   firestore: firestoreReducer
 

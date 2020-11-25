@@ -37,18 +37,10 @@ export default function Adminexpantionpanel() {
           aria-controls="panel2a-content"
           id="panel2a-header"
         >
-          <Typography className={classes.heading}><div className="navi-link">
-              <div className="symbol symbol-40 bg-light mr-3">
-                
-              </div>
-              <div className="navi-text">
-                <p className="font-weight-bold">Admins</p>
-                <div className="text-muted">
-                  Manage Adminstrator Users
-                
-                </div>
-              </div>
-            </div></Typography>
+          <Typography className={classes.heading}>
+          Manage Adminstrator Users
+            </Typography>
+           
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <Typography>

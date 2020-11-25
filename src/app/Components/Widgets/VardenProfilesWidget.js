@@ -4,14 +4,24 @@ import SVG from "react-inlinesvg";
 import {toAbsoluteUrl} from "../../../_metronic/_helpers";
 import {Button} from "react-bootstrap";
 import CreateWardenModal from "../Modals/CreateWardenModal";
-import firebase from "../../../config/fbConfig";
+import {deletevarden} from "../../../redux/actions/VardenActions"
+import {GetVarden} from "../../../redux/actions/VardenActions"
+import { connect, shallowEqual, useSelector } from "react-redux";;
 
 
+function VardenProfilesWidget(props) {
 
-export function VardenProfilesWidget(props) {
+  const {Vardens} = useSelector(
+    ({profiles}) => ({
+        Vardens: profiles.Users,
+    }),
+    shallowEqual
+);
+  
 
-
-  const {Vardens} = props
+  React.useEffect(() =>{
+    props.GetVarden()
+  },[Vardens])
   
   const [modalShow, setModalShow] = React.useState(false);
 
@@ -22,16 +32,18 @@ export function VardenProfilesWidget(props) {
         <div className="card-header border-0 py-5">
           <h3 className="card-title align-items-start flex-column">
             <span className="card-label font-weight-bolder text-dark"> Warden </span>
-            <span className="text-muted mt-3 font-weight-bold font-size-sm">{Vardens.length} Vardens are Registered</span>
+            <span className="text-muted mt-3 font-weight-bold font-size-sm">{} Vardens are Registered</span>
           </h3>
           <div className="card-toolbar">
-          <Button variant="btn btn-danger font-weight-bolder font-size-sm" onClick={() => setModalShow(true)}>
+          <Button  variant="btn btn-danger font-weight-bolder font-size-sm" onClick={() => setModalShow(true)}>
         Create Warden 
       </Button>
       
       <CreateWardenModal
         show={modalShow}
         onHide={() => setModalShow(false)}
+        Vardens = {Vardens}
+        
 
       />
            </div>
@@ -101,9 +113,10 @@ export function VardenProfilesWidget(props) {
                   </td>
                   <td>
                     <Button variant="btn btn-danger font-weight-bolder font-size-sm" onClick={() => {
-                        const db = firebase.firestore()
-                       db.collection("Vardens").doc(Varden.id).delete()
-                      
+                       props.deletevarden(Varden.id)
+                       Vardens.push({})
+                       
+                    
                      
                     }} >
           Delete
@@ -122,6 +135,12 @@ export function VardenProfilesWidget(props) {
         </div>
       </div>
   );
+} 
+  const mapdispatchtoprops = dispatch => {
+  return {
+    deletevarden: (id) => dispatch(deletevarden(id)),
+    GetVarden: () => dispatch(GetVarden())
+  }
 }
 
-export default (VardenProfilesWidget)
+export default connect(null, mapdispatchtoprops)(VardenProfilesWidget)

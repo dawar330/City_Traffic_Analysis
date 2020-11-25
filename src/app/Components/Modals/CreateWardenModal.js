@@ -8,7 +8,7 @@ import {TextField} from "@material-ui/core"
 import { object } from "yup";
 
  export function CreateWardenModal(propss){
-  
+  const {Vardens} = propss 
 
         return(
           <Formik
@@ -16,7 +16,7 @@ import { object } from "yup";
           onSubmit={(values, formikHelpers)=>{
             console.log(values)
             propss.createvarden(values)
-            
+            Vardens.push({})
             propss.onHide()
           }}
           validationSchema={
