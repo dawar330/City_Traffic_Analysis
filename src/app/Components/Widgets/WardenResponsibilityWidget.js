@@ -7,26 +7,29 @@ import AssignDutiesModal from "../Modals/AssignDutiesModal";
 import {connect, useSelector, shallowEqual} from 'react-redux';
 import {GetVardenNameid } from "../../../redux/actions/VardenActions"
 import {DeletevardenDuty, GetDuties} from "../../../redux/actions/DutiesActions"
+import { DialerSip } from "@material-ui/icons";
 
 
  function WardenResponsibilityWidget(props) {
-    const [modalShow1, setModalShow1] = React.useState(false);
-    React.useEffect(()=>{
-      props.GetVardenNameid()
-      props.GetDuties()
-    },[Duties])
-    const {Vardens} = useSelector(
-      ({profiles}) => ({
-          Vardens: profiles.UsersIds,
-      }),
-      shallowEqual
-  );
+    
     const {Duties} = useSelector(
       ({Responsibility}) => ({
           Duties: Responsibility.Duties,
       }),
       shallowEqual
-  );
+  );   const {Vardens} = useSelector(
+    ({profiles}) => ({
+        Vardens: profiles.UsersIds,
+    }),
+    shallowEqual
+);
+
+ var change = []
+    React.useEffect(()=>{
+      props.GetVardenNameid()
+      props.GetDuties()
+    },[change])
+    const [modalShow1, setModalShow1] = React.useState(false);
    
   return (
       <div className={`card card-custom card-stretch gutter-b`}>
@@ -44,6 +47,7 @@ import {DeletevardenDuty, GetDuties} from "../../../redux/actions/DutiesActions"
         show={modalShow1}
         onHide={() => setModalShow1(false)}
         Vardens = {Vardens}
+        Duties={Duties}
       />  </div>
         </div>
         {/* Body */}
@@ -107,6 +111,7 @@ import {DeletevardenDuty, GetDuties} from "../../../redux/actions/DutiesActions"
                     <td>
                     <Button variant="btn btn-danger font-weight-bolder font-size-sm" onClick={() => {
                         props.DeletevardenDuty(Duty.id)
+                        change.push('upat')
                     }} >
           Delete
         </Button>  
