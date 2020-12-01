@@ -8,8 +8,8 @@
 import React from "react";
 import { Redirect, Switch } from "react-router-dom";
 import { shallowEqual, useSelector } from "react-redux";
-import {Layout} from "../_metronic/layout";
-import BasePage from "./BasePage";
+import {VardenLayout} from "../_metronic/layout/components/VardenLayout";
+import VardenBasePage from "./VardenBasePage";
 import AuthPage  from "../app/pages/auth/AuthPage";
 
 
@@ -44,9 +44,9 @@ export function Routes(props) {
                 /*Redirect to `/auth` when user is not authorized*/
                 <Redirect to="/auth/login"/>
             ) : (
-                <Layout>
-                    <BasePage/>
-                </Layout>
+                <VardenLayout>
+                    <VardenBasePage/>
+                </VardenLayout>
             )}
         </Switch>
     );

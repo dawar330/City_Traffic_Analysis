@@ -1,9 +1,10 @@
+
 export const Signin = (crds) => {
     
     return(dispatch , getstate , {getFirebase , getFirestore}) => {
         
         const firebase = getFirebase();
-    
+     
     firebase.auth().signInWithEmailAndPassword(
         crds.email,
         crds.password
@@ -43,6 +44,49 @@ export const signOut = () => {
         
         firebase.auth().signOut().then(() => {
            dispatch ({type : "SignOut_Succes"})
+        })
+    }
+}
+export const getUser = (id) => {
+    return (dispatch ,getState, {getFirebase,getFirestore}) => {
+        const firestore = getFirestore();
+        const firebase = getFirebase();
+        const User = []
+        var ref = firebase.auth().currentUser;
+        firestore.collection("Users").doc(id).get()
+        .then(function(doc) {
+            if (doc.exists) {
+               User.push(doc.data())
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch(function(error) {
+            console.log("Error getting document:", error);
+        })
+        .then(() => {
+           dispatch ({type : "GetUser_Succes", User})
+        })
+    }
+}
+export const UpdateUser = (User) => {
+    return (dispatch ,getState, {getFirebase,getFirestore}) => {
+        const firestore = getFirestore();
+        const firebase = getFirebase();
+        var U = firebase.auth().currentUser;
+        var cityRef = firestore.collection('Users').doc(U.uid);
+
+var setWithMerge = cityRef.update({
+    
+    Email: User.email,
+    FirstName: User.firstname,
+    LastName :User.lastname,
+    Age: User.age,
+    phone: User.phone,
+    pic: User.pic
+}, )
+.then(() => {
+           dispatch ({type : "Update_Success", User})
         })
     }
 }

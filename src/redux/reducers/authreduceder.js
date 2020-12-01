@@ -30,6 +30,18 @@ const initState = {
                     ...state,
                     autherror: action.err.message
                 }
+                case 'Update_Success':
+                    console.log(action, action.User)
+                    return {
+                        ...state,
+                       
+                    }
+        case 'GetUser_Succes':
+            console.log(action, action.err)
+                return {
+                        ...state,
+                        User: action.User
+                    }
         case 'SignOut_Succes':
                 console.log("SignOut Sucess")
                 return {

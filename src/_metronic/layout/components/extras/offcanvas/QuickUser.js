@@ -17,8 +17,6 @@ function QuickUser(props) {
     shallowEqual
 );
 const [ user , setUser] =  useState(0);
-const [ veiwadmin , setveiwadmin] =  useState(0);
-
 var docRef = firebase.firestore().collection("Users").doc(id.uid);
 const [ initials , setinitials] =  useState(0);
 docRef.get().then(function(doc) {
