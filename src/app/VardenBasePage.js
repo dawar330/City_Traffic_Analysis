@@ -11,29 +11,29 @@ import { db } from "../config/fbConfig";
 
  function VardenBasePage(props) {
 
+    const {User} = props    
+    // const {id} = useSelector(
+    //     ({firebase}) => ({
+    //         id: firebase.auth ,
+    //     }),
+    //     shallowEqual
+    // );
     
-    const {id} = useSelector(
-        ({firebase}) => ({
-            id: firebase.auth ,
-        }),
-        shallowEqual
-    );
     
-    
-    var docRef = db.collection("Users").doc(id.uid);
-    const [ User , setUser] =  useState([]);
-    React.useEffect(()=>{
-        docRef.get().then(function(doc) {
-            if (doc.exists) {
-              setUser(doc.data());
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-          }).catch(function(error) {
-            console.log("Error getting document:", error);
-          }); 
-    },[])
+    // var docRef = db.collection("Users").doc(id.uid);
+    // const [ User , setUser] =  useState([]);
+    // React.useEffect(()=>{
+    //     docRef.get().then(function(doc) {
+    //         if (doc.exists) {
+    //           setUser(doc.data());
+    //         } else {
+    //             // doc.data() will be undefined in this case
+    //             console.log("No such document!");
+    //         }
+    //       }).catch(function(error) {
+    //         console.log("Error getting document:", error);
+    //       }); 
+    // },[])
     return (
         <Suspense fallback={<LayoutSplashScreen/>}>
             <Switch>

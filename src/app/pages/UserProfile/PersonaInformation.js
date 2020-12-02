@@ -6,12 +6,14 @@ import * as Yup from "yup";
 import { ModalProgressBar } from "../../../_metronic/_partials/controls";
 import { toAbsoluteUrl } from "../../../_metronic/_helpers";
 import { UpdateUser } from "../../../redux/actions/authActions";
+import { storage } from "../../../config/fbConfig";
 
 
 function PersonaInformation(props) {
   // Fields
   const [loading, setloading] = useState(false);
   const [pic, setPic] = useState("");
+  const [image, setimage] = useState()
   const dispatch = useDispatch();
   const {User} = props
   useEffect(() => {
@@ -19,12 +21,20 @@ function PersonaInformation(props) {
       setPic(User.pic);
     }
   }, []);
+  
   // Methods
   const saveUser = (values, setStatus, setSubmitting) => {
     setloading(true);
-    const updatedUser = values;
-    // user for update preparation
-    props.UpdateUser(updatedUser);
+    
+      console.log(pic)
+      values.pic = pic
+      const updatedUser = values;
+      console.log("Update",updatedUser)
+      // user for update preparation
+      props.UpdateUser(updatedUser);
+    
+    
+    
     setTimeout(() => {
       setloading(false);
       setSubmitting(false);
@@ -87,12 +97,33 @@ function PersonaInformation(props) {
     if (!pic) {
       return "none";
     }
-
     return `url(${pic})`;
   };
   const removePic = () => {
     setPic("");
   };
+ 
+  const handleChange = async(e) => {
+   const img=(e.target.files[0]);
+    console.log(img);
+    const uploadtask = storage.ref(`images`).child(img.name);
+     uploadtask.put(img);
+    await uploadtask.getDownloadURL().then((url)=>{
+      console.log(url)
+      setPic(url);
+    
+    
+      })
+}
+
+  const handleUpload=async()=>{
+   
+    
+    
+    
+          }
+        
+  
   return (
     <form
       className="card card-custom card-stretch"
@@ -147,15 +178,15 @@ function PersonaInformation(props) {
                 className="image-input image-input-outline"
                 id="kt_profile_avatar"
                 style={{
-                  backgroundImage: `url(${getUserPic()}
-                  )}`,
+                  backgroundImage: `url(${getUserPic()}`
+
                 }}
               >
                 <div
                   className="image-input-wrapper"
                   style={{
                     backgroundImage: `url(${toAbsoluteUrl(
-                      "/media/users/blank.png"
+                      
                     )}`,
                   }}
                 />
@@ -169,10 +200,8 @@ function PersonaInformation(props) {
                   <i className="fa fa-pen icon-sm text-muted"></i>
                   <input
                     type="file"
-                    name="pic"
-                    accept=".png, .jpg, .jpeg"
-                    value=""
-                    {...formik.getFieldProps("pic")}
+                    accept="images/*"
+                    onChange={handleChange}
                   />
                   <input type="hidden" name="profile_avatar_remove" />
                 </label>
