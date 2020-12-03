@@ -20,16 +20,16 @@ function PersonaInformation(props) {
     if (User.pic) {
       setPic(User.pic);
     }
-  }, []);
+  }, [User]);
   
   // Methods
   const saveUser = (values, setStatus, setSubmitting) => {
     setloading(true);
     
-      console.log(pic)
+      
       values.pic = pic
       const updatedUser = values;
-      console.log("Update",updatedUser)
+      
       // user for update preparation
       props.UpdateUser(updatedUser);
     
@@ -95,10 +95,15 @@ function PersonaInformation(props) {
   });
   const getUserPic = () => {
     if (!pic) {
+      console.log(pic)
       return "none";
+      
     }
+    else{
+      console.log(pic)
     return `url(${pic})`;
-  };
+  }
+};
   const removePic = () => {
     setPic("");
   };
@@ -111,17 +116,13 @@ function PersonaInformation(props) {
      uploadtask.getDownloadURL().then((url)=>{
       console.log(url)
       setPic(url);
+      User.pic = url
     
     
       })
 }
 
-  const handleUpload=async()=>{
-   
-    
-    
-    
-          }
+
         
   
   return (
@@ -178,17 +179,15 @@ function PersonaInformation(props) {
                 className="image-input image-input-outline"
                 id="kt_profile_avatar"
                 style={{
-                  backgroundImage: `url(${getUserPic()}`
+                  
+                  backgroundImage: `url(${User.pic}`
 
                 }}
               >
-                <div
-                  className="image-input-wrapper"
-                  style={{
-                    backgroundImage: `url(${toAbsoluteUrl(
-                      
-                    )}`,
-                  }}
+                <img
+                  src={User.pic}
+                  className=" image-input image-input-wrapper"
+                  
                 />
                 <label
                   className="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"

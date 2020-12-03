@@ -74,6 +74,7 @@ export const UpdateUser = (User) => {
         const firestore = getFirestore();
         const firebase = getFirebase();
         var U = firebase.auth().currentUser;
+        U.updateEmail(User.email);
         var cityRef = firestore.collection('Users').doc(U.uid);
 
 var setWithMerge = cityRef.update({

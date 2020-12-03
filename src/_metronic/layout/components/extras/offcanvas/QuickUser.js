@@ -46,11 +46,10 @@ function QuickUser(props) {
       <div className="offcanvas-content pr-5 mr-n5">
         <div className="d-flex align-items-center mt-5">
           <div className="symbol symbol-100 mr-5">
-            <div
+            <img
               className="symbol-label"
-              style={{
-                backgroundImage: null,
-              }}
+              src={User.pic}
+              
             />
             <i className="symbol-badge bg-success" />
           </div>

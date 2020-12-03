@@ -47,10 +47,10 @@ console.log("props", (User))
               {/* begin::User */}
               <div className="d-flex align-items-center">
                 <div className="symbol symbol-60 symbol-xxl-100 mr-5 align-self-start align-self-xxl-center">
-                  <div
+                  <img
                     className="symbol-label"
-                    style={{ backgroundImage: `url()` }}
-                  ></div>
+                    src={User.pic}
+                  />
                   {/* style="background-i
                   mage:url('/metronic/theme/html/demo1/dist/assets/media/users/300_21.jpg')" */}
                   <i className="symbol-badge bg-success"></i>
