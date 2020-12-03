@@ -5,9 +5,10 @@ import {Topbar} from "./Topbar";
 import {HeaderMenuWrapper} from "./header-menu/HeaderMenuWrapper";
 import {AnimateLoading} from "../../../_partials/controls";
 
-export function Header() {
+export function Header(props) {
   const uiService = useHtmlClassService();
-
+ const {User} = props
+ 
   const layoutProps = useMemo(() => {
     return {
       headerClasses: uiService.getClasses("header", true),
@@ -37,7 +38,7 @@ export function Header() {
           {/*end::Header Menu Wrapper*/}
 
           {/*begin::Topbar*/}
-          <Topbar />
+          <Topbar User={User}/>
           {/*end::Topbar*/}
         </div>
         {/*end::Container*/}

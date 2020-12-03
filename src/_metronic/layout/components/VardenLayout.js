@@ -11,9 +11,10 @@ import {LayoutInit} from "./LayoutInit";
 import {ScrollTop} from "./extras/ScrollTop";
 import QuickUser from "../components/extras/offcanvas/QuickUser";
 
-export function VardenLayout({ children }) {
+export function VardenLayout(props) {
+    const {children} = props
     const uiService = useHtmlClassService();
-    
+    const {User} = props
     // Layout settings (cssClasses/cssAttributes)
     const layoutProps = useMemo(() => {
         return {
@@ -41,7 +42,7 @@ export function VardenLayout({ children }) {
                     {layoutProps.asideDisplay && (<VardenAside/>)}
                     {/*begin::Wrapper*/}
                     <div className="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
-                        <Header/>
+                        <Header User={User}/>
                         {/*begin::Content*/}
                         <div
                             id="kt_content"
@@ -69,7 +70,7 @@ export function VardenLayout({ children }) {
                 </div>
                 {/*end::Page*/}
             </div>
-            <QuickUser/>
+            <QuickUser User ={User}/>
            
 
             

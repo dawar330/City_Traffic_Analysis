@@ -9,29 +9,10 @@ import firebase from "../../../../../config/fbConfig";
 import Adminexpantionpanel from "../../../../../app/Components/ExpantionPanel/Adminexpantionpanel";
 
 function QuickUser(props) {
+  const {User} = props
   const history = useHistory();
-  const {id} = useSelector(
-    ({firebase}) => ({
-        id: firebase.auth ,
-    }),
-    shallowEqual
-);
-const [ user , setUser] =  useState(0);
-var docRef = firebase.firestore().collection("Users").doc(id.uid);
-const [ initials , setinitials] =  useState(0);
-docRef.get().then(function(doc) {
-  if (doc.exists) {
-    setUser(doc.data());
-    setinitials(user.FirstName[0].toUpperCase() + user.LastName[0].toUpperCase() )
-
-      
-  } else {
-      // doc.data() will be undefined in this case
-      console.log("No such document!");
-  }
-}).catch(function(error) {
-  console.log("Error getting document:", error);
-});
+  
+  
  const logoutClick = () => {
     const toggle = document.getElementById("kt_quick_user_toggle");
     if (toggle) {
@@ -51,7 +32,7 @@ docRef.get().then(function(doc) {
     >
       <div className="offcanvas-header d-flex align-items-center justify-content-between pb-5">
         <h3 className="font-weight-bold m-0">
-          {user.FirstName} {user.LastName}
+          {User.FirstName} {User.LastName}
           <small className="text-muted font-size-sm ml-2">12 messages</small>
         </h3>
         <a
@@ -80,7 +61,7 @@ docRef.get().then(function(doc) {
             >
                
             </a>
-            <div className="text-muted mt-1">{user.Designation}</div>
+            <div className="text-muted mt-1">{User.Designation}</div>
             <div className="navi mt-2">
               <a className="navi-item cursor-pointer">
                 <span className="navi-link p-0 pb-2">
@@ -94,7 +75,7 @@ docRef.get().then(function(doc) {
                     </span>
                   </span>
                   <span className="navi-text text-muted text-hover-primary">
-                    {user.Email}
+                    {User.Email}
                   </span>
                 </span>
               </a>

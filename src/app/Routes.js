@@ -17,13 +17,7 @@ import { db } from "../config/fbConfig";
 import firebase from "../config/fbConfig"
 export function Routes(props) {
 
- 
-    const {idd} = useSelector(
-        ({firebase}) => ({
-            id: firebase.auth ,
-        }),
-        shallowEqual
-    );
+
     const {isAuthorized} = useSelector(
         ({firebase}) => ({
             isAuthorized: !firebase.auth.isEmpty ,

@@ -11,8 +11,10 @@ import {LayoutInit} from "./LayoutInit";
 import {ScrollTop} from "./extras/ScrollTop";
 import QuickUser from "../components/extras/offcanvas/QuickUser";
 
-export function Layout({ children }) {
+export function Layout(props) {
     const uiService = useHtmlClassService();
+    const {User} = props
+    const {children} = props
     // Layout settings (cssClasses/cssAttributes)
     const layoutProps = useMemo(() => {
         return {
@@ -40,7 +42,7 @@ export function Layout({ children }) {
                     {layoutProps.asideDisplay && (<Aside/>)}
                     {/*begin::Wrapper*/}
                     <div className="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
-                        <Header/>
+                        <Header User={User}/>
                         {/*begin::Content*/}
                         <div
                             id="kt_content"
@@ -68,7 +70,7 @@ export function Layout({ children }) {
                 </div>
                 {/*end::Page*/}
             </div>
-            <QuickUser/>
+            <QuickUser User={User}/>
            
 
             

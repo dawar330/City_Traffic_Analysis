@@ -107,8 +107,8 @@ function PersonaInformation(props) {
    const img=(e.target.files[0]);
     console.log(img);
     const uploadtask = storage.ref(`images`).child(img.name);
-     uploadtask.put(img);
-    await uploadtask.getDownloadURL().then((url)=>{
+    await uploadtask.put(img);
+     uploadtask.getDownloadURL().then((url)=>{
       console.log(url)
       setPic(url);
     

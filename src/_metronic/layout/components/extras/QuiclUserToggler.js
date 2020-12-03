@@ -8,29 +8,8 @@ import { useHtmlClassService } from "../../_core/MetronicLayout";
 import { UserProfileDropdown } from "./dropdowns/UserProfileDropdown";
 import firebase from "../../../../config/fbConfig";
 
-export function QuickUserToggler() {
-  const {id} = useSelector(
-    ({firebase}) => ({
-        id: firebase.auth ,
-    }),
-    shallowEqual
-);
-  const [ user , setUser] =  useState(0);
-  var docRef = firebase.firestore().collection("Users").doc(id.uid);
-  const [ initials , setinitials] =  useState(0);
-docRef.get().then(function(doc) {
-    if (doc.exists) {
-      setUser(doc.data());
-      setinitials(user.FirstName[0].toUpperCase() + user.LastName[0].toUpperCase() )
-
-        
-    } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-    }
-}).catch(function(error) {
-    console.log("Error getting document:", error);
-});
+export function QuickUserToggler(props) {
+  const {User} = props
   const uiService = useHtmlClassService();
   const layoutProps = useMemo(() => {
     return {
@@ -56,11 +35,11 @@ docRef.get().then(function(doc) {
                   Hi,
                 </span>
                 <span className="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">
-                  {user.FirstName}
+                  {User.FirstName}
                 </span>
                 <span className="symbol symbol-35 symbol-light-success">
                   <span className="symbol-label font-size-h5 font-weight-bold">
-                    {initials}
+                    {User.LastName}
                   </span>
                 </span>
               </>

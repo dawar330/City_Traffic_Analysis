@@ -7,8 +7,7 @@ import ChangePassword from "./ChangePassword";
 import PersonaInformation from "./PersonaInformation";
 import EmailSettings from "./EmailSettings";
 import  ProfileCard  from "./components/ProfileCard";
-import { shallowEqual, useSelector } from "react-redux";
-import { db } from "../../../config/fbConfig";
+
 
 export default function UserProfilePage(props) {
   const suhbeader = useSubheader();
