@@ -10,6 +10,7 @@ import "./_metronic/_assets/plugins/flaticon2/flaticon.css";
 // Datepicker
 import "react-datepicker/dist/react-datepicker.css";
 import App from './../src/app/App';
+import ReactNotification from 'react-notifications-component'
 import { Provider} from 'react-redux'
 import store, { persistor } from "./redux/store";
 import {
@@ -24,7 +25,9 @@ ReactDOM.render(
   <MetronicLayoutProvider>
       <MetronicSubheaderProvider>
         <MetronicSplashScreenProvider>
-          <Provider store={store}><App store={store} persistor={persistor} basename={PUBLIC_URL} /></Provider>
+          <Provider store={store}>
+            <ReactNotification/>
+            <App store={store} persistor={persistor} basename={PUBLIC_URL} /></Provider>
           
         </MetronicSplashScreenProvider>
       </MetronicSubheaderProvider>

@@ -90,11 +90,11 @@ console.log("props", (User))
                 </div>
                 <div className="d-flex align-items-center justify-content-between mb-2">
                   <span className="font-weight-bold mr-2">Phone:</span>
-                  <span className="text-muted">Phone</span>
+                  <span className="text-muted">{User.phone}</span>
                 </div>
                 <div className="d-flex align-items-center justify-content-between">
-                  <span className="font-weight-bold mr-2">Location:</span>
-                  <span className="text-muted">Address</span>
+                  <span className="font-weight-bold mr-2">Rank:</span>
+                  <span className="text-muted">{User.Rank}</span>
                 </div>
               </div>
               {/* end::Contact */}

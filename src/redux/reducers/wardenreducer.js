@@ -44,7 +44,21 @@ const initState = {
                         ...state,
                         vardenerr : action.err.message
                     }
-        default: 
+                case 'Admin_Added':
+                    console.log(action, action.User)
+                    return {
+                        ...state,
+                            
+                     }
+                
+                case 'Admin_Removed':
+                    console.log(action, action.User)
+                    return {
+                        ...state,
+                            
+                     }
+                
+            default: 
             return state;
 
         

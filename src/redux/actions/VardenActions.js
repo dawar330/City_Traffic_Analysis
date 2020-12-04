@@ -1,3 +1,5 @@
+import { db } from "../../config/fbConfig";
+
 export const createvarden = (newUser) => {
     return(dispatch , getstate , {getFirebase , getFirestore}) => {
     const firebase = getFirebase();
@@ -13,7 +15,7 @@ export const createvarden = (newUser) => {
             Age : newUser.Age,
             Rank : newUser.Rank,
             Designation : newUser.Designation,
-            isAdmin : false
+            isadmin : false
         })
     }).then(() => {
         
@@ -83,6 +85,40 @@ export const GetVardenNameid = () => {
         dispatch ({type : "GetVardenNameid",Vardens})
     }).catch((err) => {
         dispatch ({type : "GetVardenNameid_Error", err})
+    })
+    
+   
+    
+}
+}
+export const MakeAdmin = (Varden) => {
+    return(dispatch) => {
+    const User =  db.collection("Users").doc(Varden.value);
+    User.update({
+        isadmin: true
+    })
+    .then(() =>{
+        
+        dispatch ({type : "Admin_Added"})
+    }).catch((err) => {
+        dispatch ({type : "Admin_Added_Error"})
+    })
+    
+   
+    
+}
+}
+export const DeleteAdmin = (Varden) => {
+    return(dispatch) => {
+    const User =  db.collection("Users").doc(Varden.value);
+    User.update({
+        isadmin: false
+    })
+    .then(() =>{
+        
+        dispatch ({type : "Admin_Removed"})
+    }).catch((err) => {
+        dispatch ({type : "Admin_Removed_Error"})
     })
     
    

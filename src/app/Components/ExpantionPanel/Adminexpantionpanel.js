@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import {TextField} from "@material-ui/core"
+import {Form, Formik, Field, ErrorMessage} from 'formik'
 import SVG from "react-inlinesvg";
 import { toAbsoluteUrl } from "../../../_metronic/_helpers";
+import { db } from '../../../config/fbConfig';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -18,7 +20,29 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Adminexpantionpanel() {
+export default function Adminexpantionpanel(props) {
+  
+  const items = []
+  
+  const [Admins, setAdmins] = useState();
+  React.useEffect(()=>{
+    
+         db.collection("Users").where("isadmin","==",true).get()
+        .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+              // doc.data() is never undefined for query doc snapshots
+              items.push({id:doc.id ,FirstName:doc.data().FirstName , LastName:doc.data().LastName});
+              
+          })
+      }).then(()=>{
+        setAdmins(items);
+      console.log(Admins)})
+      .catch(function(error) {
+          console.log("Error getting documents: ", error);
+      });
+  
+    
+  },[])
   const classes = useStyles();
 
   return (
@@ -28,25 +52,26 @@ export default function Adminexpantionpanel() {
       <ExpansionPanel>
         <ExpansionPanelSummary
           expandIcon={ 
-          <SVG
+            <img
             src={toAbsoluteUrl(
-              "/media/svg/icons/General/Notification2.svg"
+              "/media/svg/icons/Communication/Admin.png"
             )}
-          ></SVG>
+          />
         }
           aria-controls="panel2a-content"
           id="panel2a-header"
         >
-          <Typography className={classes.heading}>
-          Manage Adminstrator Users
-            </Typography>
-           
+          <Typography className="font-weight-bold">
+          Veiw Adminstrator Users
+            </Typography>           
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
+            {Admins && Admins.map((Admin,index)=>{
+               index++
+            return <li key={Admin.id}>{index}. {Admin.FirstName} {Admin.LastName}</li>
+            })}
+          </Typography><br/>
         </ExpansionPanelDetails>
       </ExpansionPanel>
 

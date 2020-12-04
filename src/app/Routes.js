@@ -44,7 +44,7 @@ export function Routes(props) {
     }
   },[isAuthorized])
    
-    console.log(User.isadmin);
+   
   
     return (
         <Switch>
@@ -74,9 +74,9 @@ export function Routes(props) {
                 </Layout>
                 
             ) : (
-                <VardenLayout User = {User}>
+                <Layout User = {User}>
                     <VardenBasePage User = {User}/>
-                </VardenLayout >
+                </Layout >
             )}
 
 

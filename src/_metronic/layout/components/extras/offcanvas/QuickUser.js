@@ -1,12 +1,14 @@
-import React, {  useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import SVG from "react-inlinesvg";
-import { connect, shallowEqual, useSelector } from "react-redux";
+import { connect} from "react-redux";
 import { useHistory } from "react-router-dom";
 import { toAbsoluteUrl } from "../../../../_helpers";
 import { signOut } from "../../../../../redux/actions/authActions";
-import firebase from "../../../../../config/fbConfig";
 import Adminexpantionpanel from "../../../../../app/Components/ExpantionPanel/Adminexpantionpanel";
+import DeleteAdminexpantionpanel from "../../../../../app/Components/ExpantionPanel/DeleteAdminExpantionPanel";
+import AddAdminexpantionpanel from "../../../../../app/Components/ExpantionPanel/AddAdminExpantionPanel";
+
 
 function QuickUser(props) {
   const {User} = props
@@ -82,6 +84,7 @@ function QuickUser(props) {
             {/* <Link to="/logout" className="btn btn-light-primary btn-bold">
                 Sign Out
               </Link> */}
+              
             <button
               className="btn btn-light-primary btn-bold"
               onClick={logoutClick}
@@ -92,10 +95,14 @@ function QuickUser(props) {
         </div>
 
         <div className="separator separator-dashed mt-8 mb-5" />
-        <Adminexpantionpanel/>
+        
         <div className="navi navi-spacer-x-0 p-0">
           
-         
+
+        {User.isadmin && <Adminexpantionpanel User={User}/>}
+        
+        {User.isadmin && <AddAdminexpantionpanel User={User}/>}
+        {User.isadmin && <DeleteAdminexpantionpanel User={User}/>}
 
           <Link to="/user-profile" className="navi-item">
             <div className="navi-link">

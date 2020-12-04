@@ -10,6 +10,7 @@ import {Footer} from "./footer/Footer";
 import {LayoutInit} from "./LayoutInit";
 import {ScrollTop} from "./extras/ScrollTop";
 import QuickUser from "../components/extras/offcanvas/QuickUser";
+import { VardenAside } from "./aside/VardenAside";
 
 export function Layout(props) {
     const uiService = useHtmlClassService();
@@ -34,12 +35,15 @@ export function Layout(props) {
 
     return layoutProps.selfLayout !== "blank" ? (
         <>
+        
             {/*begin::Main*/}
             <HeaderMobile/>
             <div className="d-flex flex-column flex-root">
                 {/*begin::Page*/}
                 <div className="d-flex flex-row flex-column-fluid page">
-                    {layoutProps.asideDisplay && (<Aside/>)}
+                    {!User.isadmin && layoutProps.asideDisplay && (<VardenAside/>)}
+                    {User.isadmin && layoutProps.asideDisplay && (<Aside/>)}
+                    
                     {/*begin::Wrapper*/}
                     <div className="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
                         <Header User={User}/>

@@ -6,7 +6,10 @@ import {Button} from "react-bootstrap";
 import CreateWardenModal from "../Modals/CreateWardenModal";
 import {deletevarden} from "../../../redux/actions/VardenActions"
 import {GetVarden} from "../../../redux/actions/VardenActions"
-import { connect, shallowEqual, useSelector } from "react-redux";;
+import { connect, shallowEqual, useSelector } from "react-redux";
+import { store } from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css';
+import 'animate.css';
 
 
 function VardenProfilesWidget(props) {
@@ -43,6 +46,21 @@ function VardenProfilesWidget(props) {
         show={modalShow}
         onHide={() => setModalShow(false)}
         Vardens = {Vardens}
+        nofity = {(values)=>{
+          store.addNotification({
+            title: "Varden Deleted",
+            message: `${values.FirstName, values.LastName} is Added form the System!`,
+            type: "succes",
+            insert: "top",
+            container: "top-right",
+            animationIn: ['animate__animated animate__fadeIn'], // `animate.css v4` classes
+             animationOut: ['animate__animated animate__fadeOut'],
+            dismiss: {
+              duration: 5000,
+              onScreen: true
+            }
+          });
+        }}
         
 
       />
@@ -114,6 +132,19 @@ function VardenProfilesWidget(props) {
                   <td>
                     <Button variant="btn btn-danger font-weight-bolder font-size-sm" onClick={() => {
                        props.deletevarden(Varden.id)
+                       store.addNotification({
+                        title: "Varden Deleted",
+                        message: `${Varden.FirstName + " " + Varden.LastName} is deleted form the System!`,
+                        type: "warning",
+                        insert: "top",
+                        container: "top-right",
+                        animationIn: ['animate__animated animate__fadeIn'], // `animate.css v4` classes
+                         animationOut: ['animate__animated animate__fadeOut'],
+                        dismiss: {
+                          duration: 5000,
+                          onScreen: true
+                        }
+                      });
                        Vardens.push({})
                        
                     

@@ -6,6 +6,9 @@ import * as Yup from 'yup'
 import {Form, Formik, Field, ErrorMessage} from 'formik'
 import {TextField} from "@material-ui/core"
 import { object } from "yup";
+import { store } from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css';
+import 'animate.css';
 
  export function CreateWardenModal(propss){
   const {Vardens} = propss 
@@ -16,8 +19,10 @@ import { object } from "yup";
           onSubmit={(values, formikHelpers)=>{
             console.log(values)
             propss.createvarden(values)
+            propss.nofity(values)
             Vardens.push({})
             propss.onHide()
+        
           }}
           validationSchema={
             object({
