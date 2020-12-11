@@ -14,6 +14,7 @@ import { VardenAside } from "./aside/VardenAside";
 
 export function Layout(props) {
   const uiService = useHtmlClassService();
+  const { UserNotification } = props;
   const { User } = props;
   const { children } = props;
   // Layout settings (cssClasses/cssAttributes)
@@ -75,7 +76,7 @@ export function Layout(props) {
         </div>
         {/*end::Page*/}
       </div>
-      <QuickUser User={User} />
+      <QuickUser User={User} UserNotification={UserNotification} />
 
       <ScrollTop />
 

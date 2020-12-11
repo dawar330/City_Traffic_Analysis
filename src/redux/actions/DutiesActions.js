@@ -5,14 +5,20 @@ import "animate.css";
 export const createDuty = (Duty) => {
   return (dispatch, getstate, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
+    const firebase = getFirebase();
     firestore
       .collection("VardenDuties")
       .add({
         ...Duty,
       })
       .then(() => {
+        const id = firebase.auth().currentUser;
+        firestore.collection("Notification").add({
+          createdAt: Date.now(),
+          Message: `Warden ${Duty.FirstName} has been assigned at ${Duty.Area}`,
+        });
         store.addNotification({
-          title: "Varden Duty Added",
+          title: "Warden Duty Added",
           message: `${Duty.FirstName} is assigned at ${Duty.Area}`,
           type: "success",
           insert: "top",

@@ -1,16 +1,20 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import SVG from "react-inlinesvg";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { toAbsoluteUrl } from "../../../../_helpers";
-import { signOut } from "../../../../../redux/actions/authActions";
+import {
+  getUserNotification,
+  signOut,
+} from "../../../../../redux/actions/authActions";
 import Adminexpantionpanel from "../../../../../app/Components/ExpantionPanel/Adminexpantionpanel";
 import DeleteAdminexpantionpanel from "../../../../../app/Components/ExpantionPanel/DeleteAdminExpantionPanel";
 import AddAdminexpantionpanel from "../../../../../app/Components/ExpantionPanel/AddAdminExpantionPanel";
 
 function QuickUser(props) {
   const { User } = props;
+  const { UserNotification } = props;
+
   const history = useHistory();
 
   const logoutClick = () => {
@@ -97,31 +101,37 @@ function QuickUser(props) {
 
         <div>
           <h5 className="mb-5">Recent Notifications</h5>
+          {UserNotification &&
+            UserNotification.map((Notification) => {
+              return (
+                <div className="d-flex align-items-center bg-light-warning rounded p-5 gutter-b">
+                  <span className="svg-icon svg-icon-warning mr-5">
+                    <SVG
+                      src={toAbsoluteUrl("/media/svg/icons/Home/Library.svg")}
+                      className="svg-icon svg-icon-lg"
+                    ></SVG>
+                  </span>
 
-          <div className="d-flex align-items-center bg-light-warning rounded p-5 gutter-b">
-            <span className="svg-icon svg-icon-warning mr-5">
-              <SVG
-                src={toAbsoluteUrl("/media/svg/icons/Home/Library.svg")}
-                className="svg-icon svg-icon-lg"
-              ></SVG>
-            </span>
+                  <div className="d-flex flex-column flex-grow-1 mr-2">
+                    <a
+                      href="#"
+                      className="font-weight-normal text-dark-75 text-hover-primary font-size-lg mb-1"
+                    >
+                      {Notification.Message}
+                    </a>
+                    <span className="text-muted font-size-sm">
+                      Due in 2 Days
+                    </span>
+                  </div>
 
-            <div className="d-flex flex-column flex-grow-1 mr-2">
-              <a
-                href="#"
-                className="font-weight-normal text-dark-75 text-hover-primary font-size-lg mb-1"
-              >
-                Another purpose persuade
-              </a>
-              <span className="text-muted font-size-sm">Due in 2 Days</span>
-            </div>
+                  <span className="font-weight-bolder text-warning py-1 font-size-lg">
+                    +28%
+                  </span>
+                </div>
+              );
+            })}
 
-            <span className="font-weight-bolder text-warning py-1 font-size-lg">
-              +28%
-            </span>
-          </div>
-
-          <div className="d-flex align-items-center bg-light-success rounded p-5 gutter-b">
+          {/* <div className="d-flex align-items-center bg-light-success rounded p-5 gutter-b">
             <span className="svg-icon svg-icon-success mr-5">
               <SVG
                 src={toAbsoluteUrl("/media/svg/icons/Communication/Write.svg")}
@@ -188,7 +198,7 @@ function QuickUser(props) {
             <span className="font-weight-bolder text-info py-1 font-size-lg">
               +8%
             </span>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
