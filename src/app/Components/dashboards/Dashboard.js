@@ -111,10 +111,18 @@ export function Dashboard() {
       label: "11 PM",
     },
   ];
-  const Map = ReactMapboxGl({
+  const Map = new ReactMapboxGl({
     accessToken:
       "pk.eyJ1IjoiZGF3YXIzMzAiLCJhIjoiY2tpYzRibjM0MDdtMTJwcGVndjV1bHV5YSJ9.9y6FYNcRkx0Rp3eNscrX6A",
   });
+  function handleChange(event) {
+    Map.setFilter("vehicles", [
+      "==",
+      ["number", ["get", "Hour"]],
+      event.target.value,
+    ]);
+  }
+
   function valueLabelFormat(value) {
     return marks.findIndex((mark) => mark.value === value) + 1;
   }
@@ -140,15 +148,7 @@ export function Dashboard() {
               width: 1200,
               height: 450,
             }}
-          >
-            <Layer
-              type="symbol"
-              id="marker"
-              layout={{ "icon-image": "marker-15" }}
-            >
-              <Feature coordinates={[33.6844, 73.047]} />
-            </Layer>
-          </Map>
+          ></Map>
           <div className="map-overlay map-overlay-inner">
             <React.Fragment>
               <Typography id="discrete-slider" gutterBottom>
@@ -165,6 +165,7 @@ export function Dashboard() {
                   marks
                   min={0}
                   max={23}
+                  onChange={handleChange}
                 />
               </div>
             </React.Fragment>

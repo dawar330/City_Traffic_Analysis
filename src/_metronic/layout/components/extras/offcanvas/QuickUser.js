@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SVG from "react-inlinesvg";
-import { connect} from "react-redux";
+import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { toAbsoluteUrl } from "../../../../_helpers";
 import { signOut } from "../../../../../redux/actions/authActions";
@@ -9,20 +9,16 @@ import Adminexpantionpanel from "../../../../../app/Components/ExpantionPanel/Ad
 import DeleteAdminexpantionpanel from "../../../../../app/Components/ExpantionPanel/DeleteAdminExpantionPanel";
 import AddAdminexpantionpanel from "../../../../../app/Components/ExpantionPanel/AddAdminExpantionPanel";
 
-
 function QuickUser(props) {
-  const {User} = props
+  const { User } = props;
   const history = useHistory();
-  
-  
- const logoutClick = () => {
+
+  const logoutClick = () => {
     const toggle = document.getElementById("kt_quick_user_toggle");
     if (toggle) {
       toggle.click();
-      console.log(props)
-      props.signOut()
-      
-
+      console.log(props);
+      props.signOut();
     }
     history.push("/logout");
   };
@@ -48,20 +44,14 @@ function QuickUser(props) {
       <div className="offcanvas-content pr-5 mr-n5">
         <div className="d-flex align-items-center mt-5">
           <div className="symbol symbol-100 mr-5">
-            <img
-              className="symbol-label"
-              src={User.pic}
-              
-            />
+            <img className="symbol-label" src={User.pic} />
             <i className="symbol-badge bg-success" />
           </div>
           <div className="d-flex flex-column">
             <a
               href="#"
               className="font-weight-bold font-size-h5 text-dark-75 text-hover-primary"
-            >
-               
-            </a>
+            ></a>
             <div className="text-muted mt-1">{User.Designation}</div>
             <div className="navi mt-2">
               <a className="navi-item cursor-pointer">
@@ -84,7 +74,7 @@ function QuickUser(props) {
             {/* <Link to="/logout" className="btn btn-light-primary btn-bold">
                 Sign Out
               </Link> */}
-              
+
             <button
               className="btn btn-light-primary btn-bold"
               onClick={logoutClick}
@@ -95,74 +85,12 @@ function QuickUser(props) {
         </div>
 
         <div className="separator separator-dashed mt-8 mb-5" />
-        
+
         <div className="navi navi-spacer-x-0 p-0">
-          
+          {User.isadmin && <Adminexpantionpanel User={User} />}
 
-        {User.isadmin && <Adminexpantionpanel User={User}/>}
-        
-        {User.isadmin && <AddAdminexpantionpanel User={User}/>}
-        {User.isadmin && <DeleteAdminexpantionpanel User={User}/>}
-
-          <Link to="/user-profile" className="navi-item">
-            <div className="navi-link">
-              <div className="symbol symbol-40 bg-light mr-3">
-                <div className="symbol-label">
-                  <span className="svg-icon svg-icon-md svg-icon-warning">
-                    <SVG
-                      src={toAbsoluteUrl(
-                        "/media/svg/icons/Shopping/Chart-bar1.svg"
-                      )}
-                    ></SVG>
-                  </span>
-                </div>
-              </div>
-              <div className="navi-text">
-                <div className="font-weight-bold">My Messages</div>
-                <div className="text-muted">Inbox and tasks</div>
-              </div>
-            </div>
-          </Link>
-
-          <a href="/user/profile" className="navi-item">
-            <div className="navi-link">
-              <div className="symbol symbol-40 bg-light mr-3">
-                <div className="symbol-label">
-                  <span className="svg-icon svg-icon-md svg-icon-danger">
-                    <SVG
-                      src={toAbsoluteUrl(
-                        "/media/svg/icons/Files/Selected-file.svg"
-                      )}
-                    ></SVG>
-                  </span>
-                </div>
-              </div>
-              <div className="navi-text">
-                <div className="font-weight-bold">My Activities</div>
-                <div className="text-muted">Logs and notifications</div>
-              </div>
-            </div>
-          </a>
-
-          <a href="/user/profile" className="navi-item">
-            <div className="navi-link">
-              <div className="symbol symbol-40 bg-light mr-3">
-                <div className="symbol-label">
-                  <span className="svg-icon svg-icon-md svg-icon-primary">
-                    <SVG
-                      src={toAbsoluteUrl(
-                        "/media/svg/icons/Communication/Mail-opened.svg"
-                      )}
-                    ></SVG>
-                  </span>
-                </div>
-              </div>
-              <div className="navi-text">
-                <div className="font-weight-bold">My Tasks</div>
-                <div className="text-muted">latest tasks and projects</div>
-              </div>
-            </div>
-          </a>
+          {User.isadmin && <AddAdminexpantionpanel User={User} />}
+          {User.isadmin && <DeleteAdminexpantionpanel User={User} />}
         </div>
 
         <div className="separator separator-dashed my-7"></div>
@@ -267,11 +195,10 @@ function QuickUser(props) {
   );
 }
 const mapDispatchToProps = (dispatch) => {
-  
-  return{
-  signOut: () => {
-    dispatch(signOut())
-  }
-}
-}
-export default connect(null, mapDispatchToProps)(QuickUser)
+  return {
+    signOut: () => {
+      dispatch(signOut());
+    },
+  };
+};
+export default connect(null, mapDispatchToProps)(QuickUser);

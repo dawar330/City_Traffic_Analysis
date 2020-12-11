@@ -50,22 +50,6 @@ function VardenProfilesWidget(props) {
             show={modalShow}
             onHide={() => setModalShow(false)}
             Vardens={Vardens}
-            nofity={(values) => {
-              store.addNotification({
-                title: "Varden Deleted",
-                message: `${(values.FirstName,
-                values.LastName)} is Added form the System!`,
-                type: "succes",
-                insert: "top",
-                container: "top-right",
-                animationIn: ["animate__animated animate__fadeIn"], // `animate.css v4` classes
-                animationOut: ["animate__animated animate__fadeOut"],
-                dismiss: {
-                  duration: 5000,
-                  onScreen: true,
-                },
-              });
-            }}
           />
         </div>
       </div>

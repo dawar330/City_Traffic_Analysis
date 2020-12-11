@@ -26,8 +26,6 @@ export function CreateWardenModal(propss) {
       onSubmit={(values, formikHelpers) => {
         console.log(values);
         propss.createvarden(values);
-        propss.nofity(values);
-        Vardens.push({});
         propss.onHide();
       }}
       validationSchema={object({
