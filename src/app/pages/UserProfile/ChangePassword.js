@@ -7,7 +7,10 @@ import * as Yup from "yup";
 import SVG from "react-inlinesvg";
 import { ModalProgressBar } from "../../../_metronic/_partials/controls";
 import { toAbsoluteUrl } from "../../../_metronic/_helpers";
-
+import { auth } from "firebase";
+import { store } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import "animate.css";
 
 function ChangePassword(props) {
   // Fields
@@ -47,9 +50,12 @@ function ChangePassword(props) {
     password: "",
     cPassword: "",
   };
+  const [wrongpass, setwrongpass] = useState();
   const Schema = Yup.object().shape({
     currentPassword: Yup.string().required("Current password is required"),
-    password: Yup.string().required("New Password is required"),
+    password: Yup.string()
+      .required("New Password is required")
+      .min(6, "Minimum 6 symbols"),
     cPassword: Yup.string()
       .required("Password confirmation is required")
       .when("password", {
@@ -75,7 +81,48 @@ function ChangePassword(props) {
     initialValues,
     validationSchema: Schema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
-      saveUser(values, setStatus, setSubmitting);
+      var user = auth().currentUser;
+      var credential = auth.EmailAuthProvider.credential(
+        auth().currentUser.email,
+        values.currentPassword
+      );
+
+      // Prompt the user to re-provide their sign-in credentials
+
+      user
+        .reauthenticateWithCredential(credential)
+        .then(function() {
+          auth().currentUser.updatePassword(values.cPassword);
+          store.addNotification({
+            title: "Password Changed Successfully",
+            message: "Your password has been updated",
+            type: "success",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated animate__fadeIn"], // `animate.css v4` classes
+            animationOut: ["animate__animated animate__fadeOut"],
+            dismiss: {
+              duration: 5000,
+              onScreen: true,
+            },
+          });
+        })
+        .catch(function(error) {
+          setwrongpass("The provided Current Password is Incorrect");
+          store.addNotification({
+            title: "Password Changed Failed",
+            message: "The Provided Current Password Was Incorrect",
+            type: "warning",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated animate__fadeIn"], // `animate.css v4` classes
+            animationOut: ["animate__animated animate__fadeOut"],
+            dismiss: {
+              duration: 5000,
+              onScreen: true,
+            },
+          });
+        });
     },
     onReset: (values, { resetForm }) => {
       resetForm();
@@ -173,6 +220,7 @@ function ChangePassword(props) {
                   {formik.errors.currentPassword}
                 </div>
               ) : null}
+              {wrongpass && <div className="danger">{wrongpass}</div>}
               <a href="#" className="text-sm font-weight-bold">
                 Forgot password ?
               </a>
@@ -225,4 +273,4 @@ function ChangePassword(props) {
   );
 }
 
-export default(ChangePassword);
+export default ChangePassword;

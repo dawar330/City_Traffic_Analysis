@@ -48,7 +48,6 @@ export const createvarden = (newUser) => {
 };
 export const deletevarden = (id) => {
   return (dispatch, getstate, { getFirebase, getFirestore }) => {
-    const firebase = getFirebase();
     const firestore = getFirestore();
     firestore
       .collection("Users")
@@ -65,11 +64,10 @@ export const deletevarden = (id) => {
 
 export const GetVarden = () => {
   return (dispatch, getstate, { getFirebase, getFirestore }) => {
-    const firebase = getFirebase();
     const firestore = getFirestore();
     var Vardens = [];
 
-    const items = firestore
+    firestore
       .collection("Users")
       .get()
       .then(function(querySnapshot) {
@@ -90,11 +88,10 @@ export const GetVarden = () => {
 
 export const GetVardenNameid = () => {
   return (dispatch, getstate, { getFirebase, getFirestore }) => {
-    const firebase = getFirebase();
     const firestore = getFirestore();
     var Vardens = [];
 
-    const items = firestore
+    firestore
       .collection("Users")
       .get()
       .then(function(querySnapshot) {

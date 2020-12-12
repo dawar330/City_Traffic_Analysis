@@ -8,14 +8,13 @@
 import React, { useState } from "react";
 import { Redirect, Switch } from "react-router-dom";
 import { shallowEqual, useSelector } from "react-redux";
-import { VardenLayout } from "../_metronic/layout/components/VardenLayout";
 import VardenBasePage from "./VardenBasePage";
 import AuthPage from "../app/pages/auth/AuthPage";
 import { Layout } from "../_metronic/layout";
 import BasePage from "./BasePage";
 import { db } from "../config/fbConfig";
 import firebase from "../config/fbConfig";
-export function Routes(props) {
+export function Routes() {
   const { isAuthorized } = useSelector(
     ({ firebase }) => ({
       isAuthorized: !firebase.auth.isEmpty,
@@ -29,13 +28,12 @@ export function Routes(props) {
     if (isAuthorized) {
       var id = firebase.auth().currentUser;
       console.log(id.uid);
-      var docRef = db
-        .collection("Users")
+      db.collection("Users")
         .doc(id.uid)
         .get()
         .then(function(doc) {
           if (doc.exists) {
-            setUser(doc.data());
+            setUser({ ...doc.data(), ID: doc.id });
           } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
@@ -46,6 +44,8 @@ export function Routes(props) {
         });
 
       db.collection("Notification")
+        .orderBy("createdAt", "desc")
+        .limit(10)
         .get()
         .then(function(querySnapshot) {
           const Notification = [];
@@ -84,7 +84,7 @@ export function Routes(props) {
           <BasePage User={User} />
         </Layout>
       ) : (
-        <Layout User={User}>
+        <Layout User={User} UserNotification={UserNotification}>
           <VardenBasePage User={User} />
         </Layout>
       )}

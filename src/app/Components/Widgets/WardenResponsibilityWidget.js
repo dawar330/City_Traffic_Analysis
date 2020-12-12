@@ -13,6 +13,7 @@ import {
 import { store } from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 import "animate.css";
+import { db } from "../../../config/fbConfig";
 
 function WardenResponsibilityWidget(props) {
   const { Duties } = useSelector(
@@ -153,6 +154,11 @@ function WardenResponsibilityWidget(props) {
                                   duration: 5000,
                                   onScreen: true,
                                 },
+                              });
+                              db.collection("Notification").add({
+                                createdAt: Date.now(),
+                                Message: `Duty ID: ${Duty.id} assigned to ${Duty.FirstName} is Deleted form the system`,
+                                type: "Warning",
                               });
                             }}
                           >

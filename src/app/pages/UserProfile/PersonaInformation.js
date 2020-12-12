@@ -1,40 +1,55 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector, shallowEqual, connect, useDispatch } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ModalProgressBar } from "../../../_metronic/_partials/controls";
-import { toAbsoluteUrl } from "../../../_metronic/_helpers";
-import { UpdateUser } from "../../../redux/actions/authActions";
-import { storage } from "../../../config/fbConfig";
 
+import { UpdateUser } from "../../../redux/actions/authActions";
+import { auth, storage } from "../../../config/fbConfig";
+
+import { store } from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+import "animate.css";
 
 function PersonaInformation(props) {
   // Fields
   const [loading, setloading] = useState(false);
   const [pic, setPic] = useState("");
-  const [image, setimage] = useState()
+  const [image, setimage] = useState();
   const dispatch = useDispatch();
-  const {User} = props
+  const { User } = props;
   useEffect(() => {
     if (User.pic) {
       setPic(User.pic);
     }
   }, [User]);
-  
+
   // Methods
   const saveUser = (values, setStatus, setSubmitting) => {
     setloading(true);
-    
-      
-      values.pic = pic
-      const updatedUser = values;
-      
-      // user for update preparation
-      props.UpdateUser(updatedUser);
-    
-    
-    
+
+    values.pic = pic;
+    const updatedUser = values;
+
+    // user for update preparation
+    props.UpdateUser(updatedUser);
+    var user = auth().currentUser;
+    user.updateEmail(updatedUser.email);
+    store.addNotification({
+      title: "User Profile Updated",
+      message: "Your profile info is Updated in the system",
+      type: "success",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animate__animated animate__fadeIn"], // `animate.css v4` classes
+      animationOut: ["animate__animated animate__fadeOut"],
+      dismiss: {
+        duration: 5000,
+        onScreen: true,
+      },
+    });
+
     setTimeout(() => {
       setloading(false);
       setSubmitting(false);
@@ -52,14 +67,12 @@ function PersonaInformation(props) {
   };
   // UI Helpers
   const initialValues = {
-
     pic: User.pic,
     firstname: User.FirstName,
-    lastname:User.LastName,
+    lastname: User.LastName,
     age: User.Age,
     phone: User.phone,
     email: User.Email,
-    
   };
   const Schema = Yup.object().shape({
     pic: Yup.string(),
@@ -70,7 +83,6 @@ function PersonaInformation(props) {
     email: Yup.string()
       .email("Wrong email format")
       .required("Email is required"),
- 
   });
   const getInputClasses = (fieldname) => {
     if (formik.touched[fieldname] && formik.errors[fieldname]) {
@@ -95,36 +107,29 @@ function PersonaInformation(props) {
   });
   const getUserPic = () => {
     if (!pic) {
-      console.log(pic)
+      console.log(pic);
       return "none";
-      
+    } else {
+      console.log(pic);
+      return `url(${pic})`;
     }
-    else{
-      console.log(pic)
-    return `url(${pic})`;
-  }
-};
+  };
   const removePic = () => {
     setPic("");
   };
- 
-  const handleChange = async(e) => {
-   const img=(e.target.files[0]);
+
+  const handleChange = async (e) => {
+    const img = e.target.files[0];
     console.log(img);
     const uploadtask = storage.ref(`images`).child(img.name);
     await uploadtask.put(img);
-     uploadtask.getDownloadURL().then((url)=>{
-      console.log(url)
+    uploadtask.getDownloadURL().then((url) => {
+      console.log(url);
       setPic(url);
-      User.pic = url
-    
-    
-      })
-}
+      User.pic = url;
+    });
+  };
 
-
-        
-  
   return (
     <form
       className="card card-custom card-stretch"
@@ -179,15 +184,12 @@ function PersonaInformation(props) {
                 className="image-input image-input-outline"
                 id="kt_profile_avatar"
                 style={{
-                  
-                  backgroundImage: `url(${User.pic}`
-
+                  backgroundImage: `url(${User.pic}`,
                 }}
               >
                 <img
                   src={User.pic}
                   className=" image-input image-input-wrapper"
-                  
                 />
                 <label
                   className="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
@@ -270,9 +272,7 @@ function PersonaInformation(props) {
             </div>
           </div>
           <div className="form-group row">
-            <label className="col-xl-3 col-lg-3 col-form-label">
-              Age
-            </label>
+            <label className="col-xl-3 col-lg-3 col-form-label">Age</label>
             <div className="col-lg-9 col-xl-6">
               <input
                 type="text"
@@ -281,7 +281,6 @@ function PersonaInformation(props) {
                 name="age"
                 {...formik.getFieldProps("age")}
               />
-              
             </div>
           </div>
           <div className="row">
@@ -345,18 +344,17 @@ function PersonaInformation(props) {
               </div>
             </div>
           </div>
-          </div>
+        </div>
         {/* end::Body */}
       </div>
       {/* end::Form */}
     </form>
   );
 }
-const mapdispatchtoprops = dispatch => {
+const mapdispatchtoprops = (dispatch) => {
   return {
-    
-    UpdateUser: (User) => dispatch(UpdateUser(User))
-  }
-}
+    UpdateUser: (User) => dispatch(UpdateUser(User)),
+  };
+};
 
-export default connect(null, mapdispatchtoprops) (PersonaInformation);
+export default connect(null, mapdispatchtoprops)(PersonaInformation);

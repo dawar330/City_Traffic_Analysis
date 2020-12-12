@@ -16,6 +16,46 @@ function QuickUser(props) {
   const { UserNotification } = props;
 
   const history = useHistory();
+  const Notifications = [];
+  const MyNotifications = [];
+  {
+    UserNotification &&
+      UserNotification.forEach((Notification) => {
+        if (Notification.to == "Admin") {
+          Notifications.push(Notification);
+        } else if (Notification.to == User.ID) {
+          MyNotifications.push(Notification);
+        }
+      });
+    console.log(UserNotification);
+  }
+
+  function timeSince(date) {
+    var seconds = Math.floor((new Date() - date) / 1000);
+
+    var interval = seconds / 31536000;
+
+    if (interval > 1) {
+      return Math.floor(interval) + " years";
+    }
+    interval = seconds / 2592000;
+    if (interval > 1) {
+      return Math.floor(interval) + " months";
+    }
+    interval = seconds / 86400;
+    if (interval > 1) {
+      return Math.floor(interval) + " days";
+    }
+    interval = seconds / 3600;
+    if (interval > 1) {
+      return Math.floor(interval) + " hours";
+    }
+    interval = seconds / 60;
+    if (interval > 1) {
+      return Math.floor(interval) + " minutes";
+    }
+    return Math.floor(seconds) + " seconds";
+  }
 
   const logoutClick = () => {
     const toggle = document.getElementById("kt_quick_user_toggle");
@@ -35,7 +75,6 @@ function QuickUser(props) {
       <div className="offcanvas-header d-flex align-items-center justify-content-between pb-5">
         <h3 className="font-weight-bold m-0">
           {User.FirstName} {User.LastName}
-          <small className="text-muted font-size-sm ml-2">12 messages</small>
         </h3>
         <a
           className="btn btn-xs btn-icon btn-light btn-hover-primary cursor-pointer"
@@ -101,10 +140,14 @@ function QuickUser(props) {
 
         <div>
           <h5 className="mb-5">Recent Notifications</h5>
-          {UserNotification &&
-            UserNotification.map((Notification) => {
+
+          {User.isadmin &&
+            Notifications &&
+            Notifications.map((Notification) => {
               return (
-                <div className="d-flex align-items-center bg-light-warning rounded p-5 gutter-b">
+                <div
+                  className={`d-flex align-items-center bg-light-${Notification.type} rounded p-5 gutter-b`}
+                >
                   <span className="svg-icon svg-icon-warning mr-5">
                     <SVG
                       src={toAbsoluteUrl("/media/svg/icons/Home/Library.svg")}
@@ -113,20 +156,38 @@ function QuickUser(props) {
                   </span>
 
                   <div className="d-flex flex-column flex-grow-1 mr-2">
-                    <a
-                      href="#"
-                      className="font-weight-normal text-dark-75 text-hover-primary font-size-lg mb-1"
-                    >
+                    <a className="font-weight-normal text-dark-75 text-hover-primary font-size-lg mb-1">
                       {Notification.Message}
                     </a>
                     <span className="text-muted font-size-sm">
-                      Due in 2 Days
+                      {timeSince(Notification.createdAt)} ago.
                     </span>
                   </div>
-
-                  <span className="font-weight-bolder text-warning py-1 font-size-lg">
-                    +28%
+                </div>
+              );
+            })}
+          {!User.isadmin &&
+            MyNotifications &&
+            MyNotifications.map((Notification) => {
+              return (
+                <div
+                  className={`d-flex align-items-center bg-light-${Notification.type} rounded p-5 gutter-b`}
+                >
+                  <span className="svg-icon svg-icon-warning mr-5">
+                    <SVG
+                      src={toAbsoluteUrl("/media/svg/icons/Home/Library.svg")}
+                      className="svg-icon svg-icon-lg"
+                    ></SVG>
                   </span>
+
+                  <div className="d-flex flex-column flex-grow-1 mr-2">
+                    <a className="font-weight-normal text-dark-75 text-hover-primary font-size-lg mb-1">
+                      {Notification.Message}
+                    </a>
+                    <span className="text-muted font-size-sm">
+                      {timeSince(Notification.createdAt)} ago.
+                    </span>
+                  </div>
                 </div>
               );
             })}

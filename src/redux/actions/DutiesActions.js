@@ -16,6 +16,14 @@ export const createDuty = (Duty) => {
         firestore.collection("Notification").add({
           createdAt: Date.now(),
           Message: `Warden ${Duty.FirstName} has been assigned at ${Duty.Area}`,
+          type: "success",
+          to: "Admin",
+        });
+        firestore.collection("Notification").add({
+          createdAt: Date.now(),
+          Message: `You have been assigned at ${Duty.Area}`,
+          type: "success",
+          to: `${Duty.Id}`,
         });
         store.addNotification({
           title: "Warden Duty Added",

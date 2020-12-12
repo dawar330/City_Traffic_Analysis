@@ -1,18 +1,16 @@
 import React, { useState } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { useSubheader } from "../../../_metronic/layout";
-import AccountInformation from "./AccountInformation";
+
 import { ProfileOverview } from "./ProfileOverview";
 import ChangePassword from "./ChangePassword";
 import PersonaInformation from "./PersonaInformation";
-import EmailSettings from "./EmailSettings";
-import  ProfileCard  from "./components/ProfileCard";
-
+import ProfileCard from "./components/ProfileCard";
 
 export default function UserProfilePage(props) {
   const suhbeader = useSubheader();
   suhbeader.setTitle("User profile");
- const {User} = props
+  const { User } = props;
   return (
     <div className="d-flex flex-row">
       <ProfileCard User={User}></ProfileCard>
@@ -27,17 +25,10 @@ export default function UserProfilePage(props) {
             path="/user-profile/profile-overview"
             component={() => <ProfileOverview User={User} />}
           />
-          <Route
-            path="/user-profile/account-information"
-            component={() => <AccountInformation User={User} />}
-          />
+
           <Route
             path="/user-profile/change-password"
             component={() => <ChangePassword User={User} />}
-          />
-          <Route
-            path="/user-profile/email-settings"
-            component={() => <EmailSettings User={User} />}
           />
           <Route
             path="/user-profile/personal-information"

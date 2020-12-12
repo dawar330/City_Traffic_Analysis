@@ -5,7 +5,6 @@ import * as Yup from "yup";
 import { Link } from "react-router-dom";
 import { signUp } from "../../../redux/actions/authActions";
 
-
 const initialValues = {
   fullname: "",
   email: "",
@@ -16,39 +15,33 @@ const initialValues = {
 };
 
 function Registration(props) {
-
   const [loading, setLoading] = useState(false);
   const RegistrationSchema = Yup.object().shape({
     fullname: Yup.string()
       .required()
       .min(3, "Minimum 3 symbols")
-      .max(50, "Maximum 50 symbols")
-,
+      .max(50, "Maximum 50 symbols"),
     email: Yup.string()
       .email("Wrong email format")
       .min(3, "Minimum 3 symbols")
       .max(50, "Maximum 50 symbols")
-      .required()
-,
+      .required(),
     username: Yup.string()
       .min(3, "Minimum 3 symbols")
       .max(50, "Maximum 50 symbols")
-      .required()
-,
+      .required(),
     password: Yup.string()
       .min(3, "Minimum 3 symbols")
       .max(50, "Maximum 50 symbols")
-      .required()
-,
+      .required(),
     changepassword: Yup.string()
-
-      .when("password", {
-        is: (val) => (val && val.length > 0 ? true : false),
-        then: Yup.string().oneOf(
-          [Yup.ref("password")],
-          "Password and Confirm Password didn't match"
-        ),
-      }),
+    .when("password", {
+      is: (val) => (val && val.length > 0 ? true : false),
+      then: Yup.string().oneOf(
+        [Yup.ref("password")],
+        "Password and Confirm Password didn't match"
+      ),
+    }),
     acceptTerms: Yup.bool().required(
       "You must accept the terms and conditions"
     ),
@@ -56,10 +49,6 @@ function Registration(props) {
 
   const enableLoading = () => {
     setLoading(true);
-  };
-
-  const disableLoading = () => {
-    setLoading(false);
   };
 
   const getInputClasses = (fieldname) => {
@@ -80,14 +69,12 @@ function Registration(props) {
     onSubmit: (values, { setStatus, setSubmitting }) => {
       enableLoading();
       props.signUp(values);
-      
     },
   });
 
   return (
     <div className="login-form login-signin" style={{ display: "block" }}>
       <div className="text-center mb-10 mb-lg-20">
-
         <p className="text-muted font-weight-bold">
           Enter your details to create your account
         </p>
@@ -212,8 +199,13 @@ function Registration(props) {
               className="m-1"
               {...formik.getFieldProps("acceptTerms")}
             />
-            <Link to="/terms" target="_blank" className="mr-1" rel="noopener noreferrer">
-            I agree the Terms & Conditions
+            <Link
+              to="/terms"
+              target="_blank"
+              className="mr-1"
+              rel="noopener noreferrer"
+            >
+              I agree the Terms & Conditions
             </Link>
             <span />
           </label>
@@ -248,10 +240,9 @@ function Registration(props) {
   );
 }
 const mapDispatchToPros = (dispatch) => {
-  return{
-  signUp : (newUser) => dispatch(signUp(newUser))
-}
+  return {
+    signUp: (newUser) => dispatch(signUp(newUser)),
+  };
+};
 
-}
-
-export default connect(null,mapDispatchToPros)(Registration);
+export default connect(null, mapDispatchToPros)(Registration);

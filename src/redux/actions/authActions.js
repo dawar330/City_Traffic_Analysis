@@ -52,9 +52,7 @@ export const signOut = () => {
 export const getUser = (id) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
-    const firebase = getFirebase();
     const User = [];
-    var ref = firebase.auth().currentUser;
     firestore
       .collection("Users")
       .doc(id)
@@ -79,9 +77,7 @@ export const getUser = (id) => {
 export const getUserNotification = () => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
-    const firebase = getFirebase();
     const UserNotification = [];
-    var ref = firebase.auth().currentUser;
     firestore
       .collection("Notification")
       //   .where("TO", "==", id)
@@ -110,7 +106,7 @@ export const UpdateUser = (User) => {
     U.updateEmail(User.email);
     var cityRef = firestore.collection("Users").doc(U.uid);
 
-    var setWithMerge = cityRef
+    cityRef
       .update({
         Email: User.email,
         FirstName: User.firstname,
