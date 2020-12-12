@@ -146,6 +146,7 @@ function QuickUser(props) {
             Notifications.map((Notification) => {
               return (
                 <div
+                  key={Notification.ID}
                   className={`d-flex align-items-center bg-light-${Notification.type} rounded p-5 gutter-b`}
                 >
                   <span className="svg-icon svg-icon-warning mr-5">
@@ -171,6 +172,7 @@ function QuickUser(props) {
             MyNotifications.map((Notification) => {
               return (
                 <div
+                  key={Notification.ID}
                   className={`d-flex align-items-center bg-light-${Notification.type} rounded p-5 gutter-b`}
                 >
                   <span className="svg-icon svg-icon-warning mr-5">

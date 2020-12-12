@@ -51,7 +51,7 @@ export function Routes() {
           const Notification = [];
           querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
-            Notification.push({ ...doc.data() });
+            Notification.push({ ...doc.data(), ID: doc.id });
           });
           setUserNotification(Notification);
         })
