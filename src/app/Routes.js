@@ -85,7 +85,7 @@ export function Routes() {
         </Layout>
       ) : (
         <Layout User={User} UserNotification={UserNotification}>
-          <VardenBasePage User={User} />
+          <VardenBasePage User={User} UserNotification={UserNotification} />
         </Layout>
       )}
     </Switch>

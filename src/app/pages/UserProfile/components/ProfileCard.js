@@ -7,7 +7,6 @@ import { toAbsoluteUrl } from "../../../../_metronic/_helpers";
 function ProfileCard(props) {
   const { User } = props;
 
-  console.log("props", User);
   return (
     <>
       {

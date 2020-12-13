@@ -220,7 +220,11 @@ function ChangePassword(props) {
                   {formik.errors.currentPassword}
                 </div>
               ) : null}
-              {wrongpass && <div className="danger">{wrongpass}</div>}
+              {wrongpass && (
+                <div>
+                  <p style={{ color: "red" }}>{wrongpass}</p>
+                </div>
+              )}
               <a href="#" className="text-sm font-weight-bold">
                 Forgot password ?
               </a>

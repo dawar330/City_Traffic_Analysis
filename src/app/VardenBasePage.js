@@ -7,6 +7,7 @@ import { EmergencyPage } from "./pages/EmergencyPage";
 
 function VardenBasePage(props) {
   const { User } = props;
+  const { UserNotification } = props;
   return (
     <Suspense fallback={<LayoutSplashScreen />}>
       <Switch>
@@ -16,7 +17,9 @@ function VardenBasePage(props) {
         }
         <Route
           path="/user-profile"
-          component={() => <UserProfilepage User={User} />}
+          component={() => (
+            <UserProfilepage User={User} UserNotification={UserNotification} />
+          )}
         />
         <ContentRoute path="/EmergencyNumbers" component={EmergencyPage} />
 

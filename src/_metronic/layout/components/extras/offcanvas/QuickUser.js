@@ -27,7 +27,6 @@ function QuickUser(props) {
           MyNotifications.push(Notification);
         }
       });
-    console.log(UserNotification);
   }
 
   function timeSince(date) {

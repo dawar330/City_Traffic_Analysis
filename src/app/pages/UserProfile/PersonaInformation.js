@@ -34,8 +34,8 @@ function PersonaInformation(props) {
 
     // user for update preparation
     props.UpdateUser(updatedUser);
-    var user = auth().currentUser;
-    user.updateEmail(updatedUser.email);
+    //var user = auth().currentUser;
+    //user.updateEmail(updatedUser.email);
     store.addNotification({
       title: "User Profile Updated",
       message: "Your profile info is Updated in the system",
