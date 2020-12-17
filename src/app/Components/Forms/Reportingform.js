@@ -1,19 +1,19 @@
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "react-bootstrap/Container";
+import Image from "react-bootstrap/Image";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Table from "react-bootstrap/Table";
+import LineChart from "../charts/line";
+import PieChart from "../charts/Pie";
+import { toAbsoluteUrl } from "../../../_metronic/_helpers";
+import { DateAndTimePickers } from "..";
+import { SimpleSelect } from "./Selector";
 
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import StepContent from '@material-ui/core/StepContent';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import { DateAndTimePickers } from '..';
-import { SimpleSelect } from './Selector';
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    width: '90%',
+    width: "90%",
   },
   button: {
     marginTop: theme.spacing(1),
@@ -28,83 +28,136 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function getSteps() {
-  return ['Select time slot for report', 'Select area', 'Generate report'];
+  return ["Select time slot for report", "Select area", "Generate report"];
 }
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return (<div>Start Date:<br/>
-        <DateAndTimePickers/><br/>
-        End Date:<br/>
-        <DateAndTimePickers/>
-</div>);
+      return (
+        <div>
+          Start Date:
+          <br />
+          <DateAndTimePickers />
+          <br />
+          End Date:
+          <br />
+          <DateAndTimePickers />
+        </div>
+      );
     case 1:
-      return (<div><SimpleSelect/>
-      </div>);
+      return (
+        <div>
+          <SimpleSelect />
+        </div>
+      );
     case 2:
       return `By generation this report i agree not to use it for illegal porpose`;
     default:
-      return 'Unknown step';
+      return "Unknown step";
   }
 }
 
-export function Reportingform() {
-  const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const steps = getSteps();
-
-  function handleNext() {
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
+export class Reportingform extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <Container>
+          <Row>
+            <Col xs="2" lg="2" xl="2">
+              <Image
+                src={toAbsoluteUrl("/media/logos/TMC.jpg")}
+                className="App-logo"
+                alt="logo"
+              />
+            </Col>
+            <Col col-lg-6 col-xxl-4>
+              REPORT
+            </Col>
+            {/* <Col xs lg="2">
+            <Button variant="primary">Primary</Button>
+            </Col> */}
+          </Row>
+          <Row>
+            <p class="font-weight-bold">Table</p>
+            <Table striped bordered hover variant="dark">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Warden Name</th>
+                  <th>Area of Duty</th>
+                  <th>Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td colSpan="2">Larry the Bird</td>
+                  <td>@twitter</td>
+                </tr>
+              </tbody>
+            </Table>
+          </Row>
+          <div className="chart">
+            <Row>
+              <Col lg xs={6}>
+                <LineChart />
+              </Col>
+              <Col lg xs={6}>
+                <PieChart />
+              </Col>
+              <br></br>
+              <br></br>
+              <br></br>
+              <Col lg xs={12}>
+                <p>Mostly Congested Areas</p>
+                <Table striped bordered hover variant="dark">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Area</th>
+                      <th>Time</th>
+                      <th>Congestion</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Mark</td>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>Jacob</td>
+                      <td>Thornton</td>
+                      <td>@fat</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td colSpan="2">Larry the Bird</td>
+                      <td>@twitter</td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </Col>
+            </Row>
+          </div>
+        </Container>
+      </div>
+    );
   }
-
-  function handleBack() {
-    setActiveStep(prevActiveStep => prevActiveStep - 1);
-  }
-
-  function handleReset() {
-    setActiveStep(0);
-  }
-
-  return (
-    <div className={classes.root}>
-      <Stepper activeStep={activeStep} orientation="vertical">
-        {steps.map((label, index) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-            <StepContent>
-              <Typography>{getStepContent(index)}</Typography>
-              <div className={classes.actionsContainer}>
-                <div>
-                  <Button
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                    className={classes.button}
-                  >
-                    Back
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? 'Generate' : 'Next'}
-                  </Button>
-                </div>
-              </div>
-            </StepContent>
-          </Step>
-        ))}
-      </Stepper>
-      {activeStep === steps.length && (
-        <Paper square elevation={0} className={classes.resetContainer}>
-          <Typography>All steps completed - you&apos;re finished</Typography>
-          <Button onClick={handleReset} className={classes.button}>
-            Reset
-          </Button>
-        </Paper>
-      )}
-    </div>
-  );
 }
+export default Reportingform;

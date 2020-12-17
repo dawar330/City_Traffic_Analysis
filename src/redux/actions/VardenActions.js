@@ -2,14 +2,28 @@ import { db } from "../../config/fbConfig";
 import { store } from "react-notifications-component";
 import "react-notifications-component/dist/theme.css";
 import "animate.css";
+import * as admin from "firebase-admin";
+var serviceAccount = require("../../city-traffic-analysis-firebase-adminsdk.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://city-traffic-analysis.firebaseio.com",
+});
 
 export const createvarden = (newUser) => {
   return (dispatch, getstate, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
     const firestore = getFirestore();
-    firebase
+
+    admin
       .auth()
-      .createUserWithEmailAndPassword(newUser.Email, "hello123")
+      .createUser({
+        email: newUser.Email,
+        emailVerified: false,
+        password: "hello123",
+        displayName: `${newUser.FirstName} ${newUser.LastName}`,
+        disabled: false,
+      })
       .then((resp) => {
         return firestore
           .collection("Users")

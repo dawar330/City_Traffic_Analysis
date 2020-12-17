@@ -38,7 +38,6 @@ export function ListsWidget10(props) {
           Notifications.push(Notification);
         }
       });
-    console.log(Notifications);
   }
   return (
     <>
@@ -55,7 +54,7 @@ export function ListsWidget10(props) {
           {Notifications &&
             Notifications.map((Notification) => {
               return (
-                <div className="mb-6">
+                <div key={Notification.ID} className="mb-6">
                   <div className="d-flex align-items-center flex-grow-1">
                     <label className="checkbox checkbox-lg checkbox-lg checkbox-single flex-shrink-0 mr-4">
                       <input type="checkbox" value={Notification.ID} />

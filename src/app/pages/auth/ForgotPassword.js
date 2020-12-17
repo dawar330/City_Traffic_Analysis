@@ -3,7 +3,8 @@ import { useFormik } from "formik";
 
 import { Link, Redirect } from "react-router-dom";
 import * as Yup from "yup";
-
+import { auth } from "../../../config/fbConfig";
+import { getFirebase } from "react-redux-firebase";
 
 const initialValues = {
   email: "",
@@ -17,8 +18,7 @@ function ForgotPassword(props) {
       .email("Wrong email format")
       .min(3, "Minimum 3 symbols")
       .max(50, "Maximum 50 symbols")
-      .required()
-      
+      .required(),
   });
 
   const getInputClasses = (fieldname) => {
@@ -37,7 +37,17 @@ function ForgotPassword(props) {
     initialValues,
     validationSchema: ForgotPasswordSchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
-     
+      const firebase = getFirebase();
+
+      firebase
+        .auth()
+        .sendPasswordResetEmail(values.email)
+        .then(function() {
+          // Email sent.
+        })
+        .catch(function(error) {
+          // An error happened.
+        });
     },
   });
 
@@ -104,4 +114,4 @@ function ForgotPassword(props) {
   );
 }
 
-export default (ForgotPassword);
+export default ForgotPassword;

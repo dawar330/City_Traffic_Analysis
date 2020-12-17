@@ -21,7 +21,7 @@ function VardenProfilesWidget(props) {
 
   React.useEffect(() => {
     props.GetVarden();
-  }, [Vardens]);
+  }, []);
 
   const [modalShow, setModalShow] = React.useState(false);
 
@@ -127,6 +127,7 @@ function VardenProfilesWidget(props) {
                             variant="btn btn-danger font-weight-bolder font-size-sm"
                             onClick={() => {
                               props.deletevarden(Varden.id);
+                              props.GetVarden();
                               store.addNotification({
                                 title: "Varden Deleted",
                                 message: `${Varden.FirstName +

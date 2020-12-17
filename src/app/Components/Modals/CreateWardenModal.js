@@ -1,17 +1,14 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import { connect, useSelector } from "react-redux";
-import { createvarden } from "../../../redux/actions/VardenActions";
+import { createvarden, GetVarden } from "../../../redux/actions/VardenActions";
 import * as Yup from "yup";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import { TextField } from "@material-ui/core";
 import { object } from "yup";
-import { store } from "react-notifications-component";
-import "react-notifications-component/dist/theme.css";
-import "animate.css";
 
-export function CreateWardenModal(propss) {
-  const { Vardens } = propss;
+export function CreateWardenModal(props) {
+  const { Vardens } = props;
 
   return (
     <Formik
@@ -25,8 +22,9 @@ export function CreateWardenModal(propss) {
       }}
       onSubmit={(values, formikHelpers) => {
         console.log(values);
-        propss.createvarden(values);
-        propss.onHide();
+        props.createvarden(values);
+        props.onHide();
+        props.GetVarden();
       }}
       validationSchema={object({
         FirstName: Yup.string().required("First Name is Required"),
@@ -42,7 +40,7 @@ export function CreateWardenModal(propss) {
       })}
     >
       {({ values, errors, touched }) => (
-        <Modal show={propss.show} onHide={propss.onHide}>
+        <Modal show={props.show} onHide={props.onHide}>
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
               Add Warden
@@ -76,7 +74,7 @@ export function CreateWardenModal(propss) {
                 <ErrorMessage name="Designation" />
                 <br />
                 <br />
-                <Button onClick={propss.onHide}>Close</Button>
+                <Button onClick={props.onHide}>Close</Button>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <Button type="submit">ADD</Button>
               </div>
@@ -92,6 +90,7 @@ export function CreateWardenModal(propss) {
 const mapdispatchtoprops = (dispatch) => {
   return {
     createvarden: (Varden) => dispatch(createvarden(Varden)),
+    GetVarden: () => dispatch(GetVarden()),
   };
 };
 export default connect(null, mapdispatchtoprops)(CreateWardenModal);

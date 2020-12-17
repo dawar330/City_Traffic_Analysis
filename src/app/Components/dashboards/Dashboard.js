@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import TrafficStatsWidget from "../Widgets/TrafficStatsWidget";
 import HourlyTrafficWidget from "../Widgets/HourlyTrafficWidget";
 import CurrentCongesstionWidget from "../Widgets/CurrentCongesstionWidget";
 import UserWidget from "../Widgets/UserWidget";
 import TrafficFlowWidget from "../Widgets/TrafficFlowWidget";
-import ReactMapboxGl, { Layer, Feature } from "react-mapbox-gl";
+import ReactMapboxGl from "react-mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { Source } from "react-mapbox-gl";
 import "./map.css";
+import { Layer } from "react-mapbox-gl";
+import { ScaleControl } from "react-mapbox-gl";
+import { toAbsoluteUrl } from "../../../_metronic/_helpers";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
+import { GeoJSONLayer } from "react-mapbox-gl";
 
 export function Dashboard() {
   const marks = [
@@ -115,12 +120,11 @@ export function Dashboard() {
     accessToken:
       "pk.eyJ1IjoiZGF3YXIzMzAiLCJhIjoiY2tpYzRibjM0MDdtMTJwcGVndjV1bHV5YSJ9.9y6FYNcRkx0Rp3eNscrX6A",
   });
+
   function handleChange(event) {
-    Map.setFilter("vehicles", [
-      "==",
-      ["number", ["get", "Hour"]],
-      event.target.value,
-    ]);
+    const hour = event.target.value;
+    var filters = ["==", "Hour", hour];
+    Map.setFilter("earthquake-circles", filters);
   }
 
   function valueLabelFormat(value) {
@@ -144,13 +148,35 @@ export function Dashboard() {
             center={[73.05, 33.701]}
             zoom={[12.3]}
             bearing={[328]}
+            filter={["==", "Hour", 1]}
             containerStyle={{
               width: 1200,
               height: 450,
             }}
-          ></Map>
+          >
+            <ScaleControl />
+            {/* <Source
+              id="source_id"
+              geoJsonSource={{
+                type: "geojson",
+                data: toAbsoluteUrl("../../../vehicles.geojson"),
+              }}
+            > */}
+            <GeoJSONLayer
+              data={toAbsoluteUrl("../../../vehicles.geojson")}
+              symbolLayout={{
+                "text-field": "{place}",
+                "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+                "text-offset": [0, 0.6],
+                "text-anchor": "top",
+              }}
+            />
+            {/* </Source> */}
+          </Map>
+
           <div className="map-overlay map-overlay-inner">
             <React.Fragment>
+              P
               <Typography id="discrete-slider" gutterBottom>
                 TIME
               </Typography>
