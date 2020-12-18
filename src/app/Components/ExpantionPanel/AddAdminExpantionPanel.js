@@ -32,19 +32,16 @@ function AddAdminexpantionpanel(props) {
   React.useEffect(() => {
     db.collection("Users")
       .where("isadmin", "==", false)
-      .get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-          // doc.data() is never undefined for query doc snapshots
+      .onSnapshot((querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach((doc) => {
           items.push({
+            email: doc.data().Email,
             value: doc.id,
             label: doc.data().FirstName + " " + doc.data().LastName,
           });
         });
-      })
-      .then(setNonAdmins(items))
-      .catch(function(error) {
-        console.log("Error getting documents: ", error);
+        setNonAdmins(items);
       });
   }, []);
   const classes = useStyles();
@@ -79,6 +76,7 @@ function AddAdminexpantionpanel(props) {
           <Button
             type="submit"
             onClick={() => {
+              console.log(Varden.value);
               props.MakeAdmin(Varden);
               store.addNotification({
                 title: "Admin Role Added",

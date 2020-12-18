@@ -12,8 +12,9 @@ import VardenBasePage from "./VardenBasePage";
 import AuthPage from "../app/pages/auth/AuthPage";
 import { Layout } from "../_metronic/layout";
 import BasePage from "./BasePage";
-import { db } from "../config/fbConfig";
-import firebase from "../config/fbConfig";
+
+import firebase, { auth, db } from "../config/fbConfig";
+
 export function Routes() {
   const { isAuthorized } = useSelector(
     ({ firebase }) => ({
@@ -21,15 +22,39 @@ export function Routes() {
     }),
     shallowEqual
   );
-
+  const [isAdmin, setisAdmin] = useState();
   const [User, setUser] = useState([]);
   const [UserNotification, setUserNotification] = useState([]);
   React.useEffect(() => {
     if (isAuthorized) {
-      var id = firebase.auth().currentUser;
-      console.log(id.uid);
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          user.getIdTokenResult().then((idTokenResult) => {
+            user.admin = idTokenResult.claims.admin;
+          });
+        }
+      });
+      firebase
+        .auth()
+        .currentUser.getIdTokenResult()
+        .then((idTokenResult) => {
+          // Confirm the user is an Admin.
+          if (!!idTokenResult.claims.admin) {
+            // Show admin UI.
+            setisAdmin(idTokenResult.claims.admin);
+            console.log(idTokenResult.claims.admin);
+          } else {
+            // Show regular user UI.
+            setisAdmin(false);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      var currentUser = firebase.auth().currentUser;
+
       db.collection("Users")
-        .doc(id.uid)
+        .doc(currentUser.uid)
         .get()
         .then(function(doc) {
           if (doc.exists) {
@@ -45,18 +70,13 @@ export function Routes() {
 
       db.collection("Notification")
         .orderBy("createdAt", "desc")
-        .limit(10)
-        .get()
-        .then(function(querySnapshot) {
-          const Notification = [];
-          querySnapshot.forEach(function(doc) {
-            // doc.data() is never undefined for query doc snapshots
-            Notification.push({ ...doc.data(), ID: doc.id });
+
+        .onSnapshot((querySnapshot) => {
+          const items = [];
+          querySnapshot.forEach((doc) => {
+            items.push({ ...doc.data(), ID: doc.id });
           });
-          setUserNotification(Notification);
-        })
-        .catch(function(error) {
-          console.log("Error getting document:", error);
+          setUserNotification(items);
         });
     }
   }, [isAuthorized]);
@@ -77,14 +97,22 @@ export function Routes() {
         <Redirect to="/auth/login" />
       )}
 
-      {User.isadmin ? (
+      {isAdmin ? (
         /*Render auth page when user at `/auth` and not authorized.*/
 
-        <Layout User={User} UserNotification={UserNotification}>
+        <Layout
+          isAdmin={isAdmin}
+          User={User}
+          UserNotification={UserNotification}
+        >
           <BasePage User={User} />
         </Layout>
       ) : (
-        <Layout User={User} UserNotification={UserNotification}>
+        <Layout
+          User={User}
+          isAdmin={isAdmin}
+          UserNotification={UserNotification}
+        >
           <VardenBasePage User={User} UserNotification={UserNotification} />
         </Layout>
       )}

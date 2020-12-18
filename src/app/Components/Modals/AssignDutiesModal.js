@@ -11,7 +11,6 @@ import Select from "react-select";
 
 export function AssignDutiesModal(propss) {
   const { Vardens } = propss;
-  const { Duties } = propss;
   const [Varden, setVarden] = React.useState([]);
   const [Area, setArea] = React.useState([]);
   const areaoptions = [

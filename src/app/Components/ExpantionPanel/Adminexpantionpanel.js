@@ -24,23 +24,16 @@ export default function Adminexpantionpanel(props) {
   React.useEffect(() => {
     db.collection("Users")
       .where("isadmin", "==", true)
-      .get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-          // doc.data() is never undefined for query doc snapshots
+      .onSnapshot((querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach((doc) => {
           items.push({
             id: doc.id,
             FirstName: doc.data().FirstName,
             LastName: doc.data().LastName,
           });
         });
-      })
-      .then(() => {
         setAdmins(items);
-        console.log(Admins);
-      })
-      .catch(function(error) {
-        console.log("Error getting documents: ", error);
       });
   }, []);
   const classes = useStyles();

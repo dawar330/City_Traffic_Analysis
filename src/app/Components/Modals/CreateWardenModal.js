@@ -24,7 +24,6 @@ export function CreateWardenModal(props) {
         console.log(values);
         props.createvarden(values);
         props.onHide();
-        props.GetVarden();
       }}
       validationSchema={object({
         FirstName: Yup.string().required("First Name is Required"),

@@ -30,6 +30,12 @@ export const signUp = (newUser) => {
           });
       })
       .then(() => {
+        firestore.collection("Notification").add({
+          createdAt: Date.now(),
+          Message: `A new Warden: ${newUser.fullname} SIGNED UP to Use TMC `,
+          type: "success",
+          to: "Admin",
+        });
         dispatch({ type: "SignUp_Succes" });
       })
       .catch((err) => {

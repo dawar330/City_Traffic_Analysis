@@ -58,7 +58,6 @@ function WardenResponsibilityWidget(props) {
             show={modalShow1}
             onHide={() => {
               setModalShow1(false);
-              props.GetDuties();
             }}
             Vardens={Vardens}
             Duties={Duties}
@@ -137,7 +136,9 @@ function WardenResponsibilityWidget(props) {
                             variant="btn btn-danger font-weight-bolder font-size-sm"
                             onClick={() => {
                               props.DeletevardenDuty(Duty.id);
-                              props.GetDuties();
+                              db.collection("Notification")
+                                .doc(Duty.id)
+                                .delete();
                               store.addNotification({
                                 title: "Varden Duty Deleted",
                                 message: `Duty id: ${Duty.id} for ${Duty.FirstName} is deleted form the System!`,
@@ -158,7 +159,8 @@ function WardenResponsibilityWidget(props) {
                               db.collection("Notification").add({
                                 createdAt: Date.now(),
                                 Message: `Duty ID: ${Duty.id} assigned to ${Duty.FirstName} is Deleted form the system`,
-                                type: "Warning",
+                                type: "warning",
+                                to: "Admin",
                               });
                             }}
                           >

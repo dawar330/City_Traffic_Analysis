@@ -127,7 +127,7 @@ function VardenProfilesWidget(props) {
                             variant="btn btn-danger font-weight-bolder font-size-sm"
                             onClick={() => {
                               props.deletevarden(Varden.id);
-                              props.GetVarden();
+
                               store.addNotification({
                                 title: "Varden Deleted",
                                 message: `${Varden.FirstName +
@@ -147,7 +147,6 @@ function VardenProfilesWidget(props) {
                                   onScreen: true,
                                 },
                               });
-                              Vardens.push({});
                             }}
                           >
                             Delete

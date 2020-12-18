@@ -16,6 +16,7 @@ export function Layout(props) {
   const uiService = useHtmlClassService();
   const { UserNotification } = props;
   const { User } = props;
+  const { isAdmin } = props;
   const { children } = props;
   // Layout settings (cssClasses/cssAttributes)
   const layoutProps = useMemo(() => {
@@ -41,8 +42,8 @@ export function Layout(props) {
       <div className="d-flex flex-column flex-root">
         {/*begin::Page*/}
         <div className="d-flex flex-row flex-column-fluid page">
-          {!User.isadmin && <VardenAside />}
-          {User.isadmin && <Aside />}
+          {!isAdmin && <VardenAside />}
+          {isAdmin && <Aside />}
 
           {/*begin::Wrapper*/}
           <div
@@ -76,7 +77,11 @@ export function Layout(props) {
         </div>
         {/*end::Page*/}
       </div>
-      <QuickUser User={User} UserNotification={UserNotification} />
+      <QuickUser
+        isAdmin={isAdmin}
+        User={User}
+        UserNotification={UserNotification}
+      />
 
       <ScrollTop />
 

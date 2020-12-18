@@ -10,8 +10,11 @@ import {
 import Adminexpantionpanel from "../../../../../app/Components/ExpantionPanel/Adminexpantionpanel";
 import DeleteAdminexpantionpanel from "../../../../../app/Components/ExpantionPanel/DeleteAdminExpantionPanel";
 import AddAdminexpantionpanel from "../../../../../app/Components/ExpantionPanel/AddAdminExpantionPanel";
+import { auth } from "../../../../../config/fbConfig";
+import { getFirebase } from "react-redux-firebase";
 
 function QuickUser(props) {
+  const { isAdmin } = props;
   const { User } = props;
   const { UserNotification } = props;
 
@@ -28,6 +31,7 @@ function QuickUser(props) {
         }
       });
   }
+  const firebase = getFirebase();
 
   function timeSince(date) {
     var seconds = Math.floor((new Date() - date) / 1000);
@@ -60,7 +64,7 @@ function QuickUser(props) {
     const toggle = document.getElementById("kt_quick_user_toggle");
     if (toggle) {
       toggle.click();
-      console.log(props);
+
       props.signOut();
     }
     history.push("/logout");
@@ -129,10 +133,9 @@ function QuickUser(props) {
         <div className="separator separator-dashed mt-8 mb-5" />
 
         <div className="navi navi-spacer-x-0 p-0">
-          {User.isadmin && <Adminexpantionpanel User={User} />}
-
-          {User.isadmin && <AddAdminexpantionpanel User={User} />}
-          {User.isadmin && <DeleteAdminexpantionpanel User={User} />}
+          {isAdmin && <Adminexpantionpanel User={User} />}
+          {isAdmin && <AddAdminexpantionpanel User={User} />}
+          {isAdmin && <DeleteAdminexpantionpanel User={User} />}
         </div>
 
         <div className="separator separator-dashed my-7"></div>
@@ -140,7 +143,7 @@ function QuickUser(props) {
         <div>
           <h5 className="mb-5">Recent Notifications</h5>
 
-          {User.isadmin &&
+          {isAdmin &&
             Notifications &&
             Notifications.map((Notification) => {
               return (
