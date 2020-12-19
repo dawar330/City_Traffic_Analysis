@@ -55,7 +55,7 @@ export function AssignDutiesModal(propss) {
         <Modal show={propss.show} onHide={propss.onHide}>
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
-              Add Warden
+              Add Duty
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
