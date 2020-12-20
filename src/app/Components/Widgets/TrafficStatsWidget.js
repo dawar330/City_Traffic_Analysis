@@ -1,13 +1,13 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
-import React, {useMemo, useEffect} from "react";
+import React, {useMemo,useState, useEffect} from "react";
 
 import objectPath from "object-path";
 import ApexCharts from "apexcharts";
 import {Dropdown} from "react-bootstrap";
 import {useHtmlClassService} from "../../../_metronic/layout";
 import {DropdownMenu2} from "../../../_metronic/_partials/dropdowns";
-
+import { csv } from 'd3';
 
 
 export function TrafficStatsWidget({ className }) {
@@ -34,8 +34,18 @@ export function TrafficStatsWidget({ className }) {
       fontFamily: objectPath.get(uiService.config, "js.fontFamily")
     };
   }, [uiService]);
-
+//---------- NEW CODE HERE -----------
+  const  [initialData,setInitialData]= useState([{}]);
+// ----------- END NEW CODE HERE ---------------
   useEffect(() => {
+    //---- NEW CODE ------------
+        fetch('/api').then(
+         response=>response.json(),
+        ).then(data=>setInitialData(data))
+
+       
+
+    //----- END NEW CODE
     const element = document.getElementById("kt_mixed_widget_1_chart");
     if (!element) {
       return;
@@ -87,7 +97,7 @@ export function TrafficStatsWidget({ className }) {
                 href="#"
                 className="text-warning font-weight-bold font-size-h6"
               >
-                50972
+               {initialData.total_cars}
               </a>
               </span>
               <a
@@ -103,7 +113,7 @@ export function TrafficStatsWidget({ className }) {
                 href="#"
                 className="text-primary font-weight-bold font-size-h6 mt-2"
               >
-                78076
+                {initialData.avg_cars}
               </a>
               </span>
               <a
@@ -121,7 +131,7 @@ export function TrafficStatsWidget({ className }) {
                 href="#"
                 className="text-danger font-weight-bold font-size-h6 mt-2"
               >
-                90 %
+                {initialData.current_congestion}
               </a>
               </span>
               <a
@@ -137,7 +147,7 @@ export function TrafficStatsWidget({ className }) {
                 href="#"
                 className="text-success font-weight-bold font-size-h6 mt-2"
               >
-                60 %
+                {initialData.avg_congestion}
               </a></span>
               <a
                 href="#"
