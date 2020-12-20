@@ -18,7 +18,7 @@ def api():
         'total_cars':total_cars,
         'avg_cars':avg_cars,
         'current_congestion':str(current_congestion)+'%',
-        'avg_congestion':str(current_congestion)+'%',
+        'avg_congestion':str(avg_congestion)+'%',
         'day_congestion':day_congestion_list
     }
     
