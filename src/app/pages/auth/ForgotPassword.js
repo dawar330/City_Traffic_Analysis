@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-
 import { Link, Redirect } from "react-router-dom";
 import * as Yup from "yup";
-import { auth } from "../../../config/fbConfig";
 import { getFirebase } from "react-redux-firebase";
 
 const initialValues = {
@@ -11,7 +9,6 @@ const initialValues = {
 };
 
 function ForgotPassword(props) {
-  const { intl } = props;
   const [isRequested, setIsRequested] = useState(false);
   const ForgotPasswordSchema = Yup.object().shape({
     email: Yup.string()
