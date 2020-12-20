@@ -1,5 +1,5 @@
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
-import React, {useMemo, useEffect} from "react";
+import React, {useMemo,useState, useEffect} from "react";
 import objectPath from "object-path";
 import ApexCharts from "apexcharts";
 import {useHtmlClassService} from "../../../_metronic/layout";
@@ -34,14 +34,25 @@ export function HourlyTrafficWidget({ className }) {
     };
   }, [uiService]);
 
+//---------- NEW CODE HERE -----------
+  const  [initialData,setInitialData]= useState([{}]);
+// ----------- END NEW CODE HERE ---------------
   useEffect(() => {
+    //---- NEW CODE ------------
+        fetch('/api').then(
+         response=>response.json(),
+        ).then(data=>setInitialData(data))
+
+       
+
+    //----- END NEW CODE
     const element = document.getElementById("kt_stats_widget_7_chart");
 
     if (!element) {
       return;
     }
-
-    const options = getChartOption(layoutProps);
+    const days = initialData.day_congestion_list;
+    const options = getChartOption(layoutProps,days);
     const chart = new ApexCharts(element, options);
     chart.render();
     return function cleanUp() {
@@ -80,12 +91,15 @@ export function HourlyTrafficWidget({ className }) {
   );
 }
 
-function getChartOption(layoutProps) {
+function getChartOption(layoutProps,days) {
   const options = {
     series: [
       {
         name: "Conjestion",
-        data: [30, 45, 32, 70, 40]
+        data: [0.0,5.648828610356268,4.817823045802506,3.41973738007358,3.6619432659050646,5.076782500763633,6.270798384363134,6.770115699491606,7.365136213141215,
+               7.935826297322397,8.468128346095881,8.710136622522986,9.192849159037744,9.64609576182404,
+               9.760330136210044,10.226905549354235,10.708548971624056,11.118811889806324,11.932655650739381,8.896007852750465]//[10,10,10,10]
+        /*data: [30, 45, 32, 70, 40]*/
       }
     ],
     chart: {
