@@ -42,7 +42,7 @@ export function UserWidget({ className }) {
     }
 
     const height = parseInt(KTUtil.css(element, 'height'));
-    const congestion = parseInt(initialData.current_congestion)
+    const congestion = 3.42;//JSON.parseInt(initialData.current_congestion);
     const options = getChartOptions(layoutProps, height,congestion);
 
     const chart = new ApexCharts(element, options);
@@ -62,7 +62,7 @@ export function UserWidget({ className }) {
       {/* Body */}
       <div className="card-body d-flex flex-column">
         <div className="flex-grow-1">
-          <div id="kt_mixed_widget_14_chart" style={{height: "200px"}}>{initialData.current_congestion}</div>
+          <div id="kt_mixed_widget_14_chart" style={{height: "200px"}}></div>
         </div>
         <div className="pt-5">
           <p className="text-center font-weight-normal font-size-lg pb-7">
@@ -80,7 +80,7 @@ export function UserWidget({ className }) {
 
 function getChartOptions(layoutProps, height,congestion) {
   const options = {
-    series: [10],
+    series: [congestion],
     chart: {
       height: height,
       type: 'radialBar',
