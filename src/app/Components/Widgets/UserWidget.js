@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
-import React, {useMemo, useEffect} from "react";
+import React, {useMemo, useState,useEffect} from "react";
 import objectPath from "object-path";
 import ApexCharts from "apexcharts";
 import {useHtmlClassService} from "../../../_metronic/layout";
@@ -24,15 +24,26 @@ export function UserWidget({ className }) {
       fontFamily: objectPath.get(uiService.config, "js.fontFamily")
     };
   }, [uiService]);
-
+//---------- NEW CODE HERE -----------
+  const  [initialData,setInitialData]= useState([{}]);
+// ----------- END NEW CODE HERE ---------------
   useEffect(() => {
+      //---- NEW CODE ------------
+        fetch('/api').then(
+         response=>response.json(),
+        ).then(data=>setInitialData(data))
+
+       
+
+    //----- END NEW CODE
     const element = document.getElementById("kt_mixed_widget_14_chart");
     if (!element) {
       return;
     }
 
     const height = parseInt(KTUtil.css(element, 'height'));
-    const options = getChartOptions(layoutProps, height);
+    const congestion = parseInt(initialData.current_congestion)
+    const options = getChartOptions(layoutProps, height,congestion);
 
     const chart = new ApexCharts(element, options);
     chart.render();
@@ -51,7 +62,7 @@ export function UserWidget({ className }) {
       {/* Body */}
       <div className="card-body d-flex flex-column">
         <div className="flex-grow-1">
-          <div id="kt_mixed_widget_14_chart" style={{height: "200px"}}></div>
+          <div id="kt_mixed_widget_14_chart" style={{height: "200px"}}>{initialData.current_congestion}</div>
         </div>
         <div className="pt-5">
           <p className="text-center font-weight-normal font-size-lg pb-7">
@@ -67,9 +78,9 @@ export function UserWidget({ className }) {
 
 
 
-function getChartOptions(layoutProps, height) {
+function getChartOptions(layoutProps, height,congestion) {
   const options = {
-    series: [90],
+    series: [10],
     chart: {
       height: height,
       type: 'radialBar',
