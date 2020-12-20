@@ -42,7 +42,7 @@ export function UserWidget({ className }) {
     }
 
     const height = parseInt(KTUtil.css(element, 'height'));
-    const congestion = 3.42;//JSON.parseInt(initialData.current_congestion);
+    const congestion = 3.42;//data.current_congestion;
     const options = getChartOptions(layoutProps, height,congestion);
 
     const chart = new ApexCharts(element, options);
