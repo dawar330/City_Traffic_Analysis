@@ -13,12 +13,14 @@ def api():
     #current_congestion = float(data['congestion'].sum())
     current_congestion = round(data.iloc[3].congestion,2)
     avg_congestion = round(data['congestion'].mean(),2)
-    day_congestion_list = list(data.congestion)
+    day_congestion_list = list(data.congestion),
+    day_cars_list = list(data.Lane_Number_Cars)
     return {
         'total_cars':total_cars,
         'avg_cars':avg_cars,
         'current_congestion':str(current_congestion)+'%',
         'avg_congestion':str(avg_congestion)+'%',
-        'day_congestion':day_congestion_list
+        'day_congestion':day_congestion_list,
+        'day_cars_list':day_cars_list
     }
     
