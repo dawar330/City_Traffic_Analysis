@@ -203,18 +203,16 @@ export function Dashboard() {
         </div>
 
         <div className="col-lg-6 col-xxl-4">
-          <HourlyTrafficWidget className="card-stretch card-stretch-half gutter-b" />
-          <CurrentCongesstionWidget className="card-stretch card-stretch-half gutter-b" />
+          <TrafficFlowWidget className="card- card-half gutter-b" />
         </div>
 
         <div className="col-lg-4">
-          <UserWidget className="card-stretch gutter-b" />
+          <HourlyTrafficWidget className="card- card-half gutter-b" />
+          <UserWidget className="card gutter-b" />
         </div>
       </div>
       <div className="row">
-        <div className="col-lg-6">
-          <TrafficFlowWidget className="card-stretch gutter-b" />
-        </div>
+        <div className="col-lg-4"></div>
       </div>
     </>
   );

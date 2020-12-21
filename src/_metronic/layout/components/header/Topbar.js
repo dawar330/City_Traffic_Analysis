@@ -12,7 +12,7 @@ import { MyCartDropdown } from "../extras/dropdowns/MyCartDropdown";
 import { QuickUserToggler } from "../extras/QuiclUserToggler";
 
 export function Topbar(props) {
-  const {User} = props
+  const { User } = props;
   const uiService = useHtmlClassService();
   const layoutProps = useMemo(() => {
     return {
@@ -43,17 +43,7 @@ export function Topbar(props) {
 
   return (
     <div className="topbar">
-     
-
-      {layoutProps.viewNotificationsDisplay && <UserNotificationsDropdown User={User}/>}
-
-     
-     
-   
-
-     
-
-      {layoutProps.viewUserDisplay && <QuickUserToggler User={User}/>}
+      {layoutProps.viewUserDisplay && <QuickUserToggler User={User} />}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect, useSelector, shallowEqual } from "react-redux";
 import Table from "react-bootstrap/Table";
@@ -59,6 +59,8 @@ export class Reportingform extends React.Component {
   render() {
     const Duties = this.props.Duties;
     console.log(Duties);
+    const InitialData = this.props.InitialData;
+
     return (
       <div className="App">
         <div className={`card gutter-b`}>
@@ -137,11 +139,25 @@ export class Reportingform extends React.Component {
           </div>
         </div>
         <div className="chart">
-          <LineChart />
-          <PieChart />
-          <br></br>
-          <br></br>
-          <br></br>
+          <div className="App">
+            <div className={`card gutter-b`}>
+              {/* Head */}
+              <div className="card-header border-0 py-5">
+                <h3 className="card-title align-items-start flex-column">
+                  <span className="card-label font-weight-bolder text-dark">
+                    Time VS Congestion
+                  </span>
+                </h3>
+              </div>
+
+              <div className="card-body pt-0 pb-3">
+                <div className="tab-content">
+                  <LineChart />
+                </div>
+              </div>
+            </div>{" "}
+          </div>
+          {/* Body */}
 
           <div className={`card gutter-b`}>
             {/* Head */}
@@ -169,10 +185,10 @@ export class Reportingform extends React.Component {
                       </tr>
                     </thead>
                     <tbody>
-                      {Duties &&
-                        Duties.map((Duty) => {
+                      {InitialData &&
+                        InitialData.lane_vs_congestion.foreach((item) => {
                           return (
-                            <tr key={Duty.id}>
+                            <tr key={item[0]}>
                               <td className="pl-0 py-8">
                                 <div className="d-flex align-items-center">
                                   <div>
@@ -180,7 +196,7 @@ export class Reportingform extends React.Component {
                                       href="#"
                                       className="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg"
                                     >
-                                      {Duty.FirstName} {Duty.LastName}
+                                      {item[0]}
                                     </a>
                                     <span className="text-muted font-weight-bold d-block"></span>
                                   </div>
@@ -196,7 +212,7 @@ export class Reportingform extends React.Component {
                               </td>
                               <td>
                                 <span className="text-dark-75 font-weight-bolder d-block font-size-lg">
-                                  {Duty.Area}
+                                  {item[1]}
                                 </span>
                                 <span className="text-muted font-weight-bold"></span>
                               </td>

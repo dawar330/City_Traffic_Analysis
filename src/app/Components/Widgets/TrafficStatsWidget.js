@@ -63,20 +63,6 @@ export function TrafficStatsWidget({ className }) {
         <h3 className="card-title font-weight-bolder text-white">
           Traffic Stats
         </h3>
-        <div className="card-toolbar">
-          <Dropdown className="dropdown-inline" drop="down" alignRight>
-            <Dropdown.Toggle
-              className="btn btn-transparent-white btn-sm font-weight-bolder dropdown-toggle px-5"
-              variant="transparent"
-              id="dropdown-toggle-top"
-            >
-              Export
-            </Dropdown.Toggle>
-            <Dropdown.Menu className="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-              <DropdownMenu2 />
-            </Dropdown.Menu>
-          </Dropdown>
-        </div>
       </div>
       {/* Body */}
       <div className="card-body p-0 position-relative overflow-hidden">

@@ -3,10 +3,11 @@ import React, { useEffect, useMemo } from "react";
 import { Dropdown } from "react-bootstrap";
 import objectPath from "object-path";
 import ApexCharts from "apexcharts";
-import { DropdownCustomToggler, DropdownMenu2 } from "../../../_metronic/_partials/dropdowns";
-import {useHtmlClassService} from "../../../_metronic/layout";
-
-
+import {
+  DropdownCustomToggler,
+  DropdownMenu2,
+} from "../../../_metronic/_partials/dropdowns";
+import { useHtmlClassService } from "../../../_metronic/layout";
 
 export function TrafficFlowWidget({ className, chartColor = "danger" }) {
   const uiService = useHtmlClassService();
@@ -41,7 +42,7 @@ export function TrafficFlowWidget({ className, chartColor = "danger" }) {
 
     const options = getChartOption(layoutProps);
     const chart = new ApexCharts(element, options);
-    chart.render();
+    //chart.render();
     return function cleanUp() {
       chart.destroy();
     };
@@ -58,32 +59,13 @@ export function TrafficFlowWidget({ className, chartColor = "danger" }) {
           <h3 className="card-title font-weight-bolder text-white">
             Traffic Flow Stats
           </h3>
-          <div className="card-toolbar">
-            <Dropdown className="dropdown-inline" alignRight>
-              <Dropdown.Toggle
-                className="btn btn-text-white btn-hover-white btn-sm btn-icon border-0"
-                variant="transparent"
-                id="dropdown-toggle-top"
-                as={DropdownCustomToggler}
-              >
-                <i className="ki ki-bold-more-hor" />
-              </Dropdown.Toggle>
-              <Dropdown.Menu className="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                <DropdownMenu2 />
-              </Dropdown.Menu>
-            </Dropdown>
-          </div>
         </div>
         {/* end::Header */}
 
         {/* begin::Body */}
         <div className="card-body d-flex flex-column p-0">
           {/* begin::Chart */}
-          <div
-            id="kt_mixed_widget_6_chart"
-            data-color={chartColor}
-            style={{ height: "200px" }}
-          />
+
           {/* end::Chart */}
 
           {/* begin::Stats */}
@@ -94,13 +76,17 @@ export function TrafficFlowWidget({ className, chartColor = "danger" }) {
                 <div className="font-size-sm text-muted font-weight-bold">
                   Average Delay
                 </div>
-                <div className="font-size-h4 font-weight-bolder">80 Seconds</div>
+                <div className="font-size-h4 font-weight-bolder">
+                  80 Seconds
+                </div>
               </div>
               <div className="col px-8 py-6">
                 <div className="font-size-sm text-muted font-weight-bold">
                   Total Delay
                 </div>
-                <div className="font-size-h4 font-weight-bolder">498 Seconds</div>
+                <div className="font-size-h4 font-weight-bolder">
+                  498 Seconds
+                </div>
               </div>
             </div>
             {/* end::Row */}
@@ -116,7 +102,9 @@ export function TrafficFlowWidget({ className, chartColor = "danger" }) {
                 <div className="font-size-sm text-muted font-weight-bold">
                   Total Waiting Time
                 </div>
-                <div className="font-size-h4 font-weight-bolder">1631 Seconds </div>
+                <div className="font-size-h4 font-weight-bolder">
+                  1631 Seconds{" "}
+                </div>
               </div>
             </div>
             {/* end::Row */}
@@ -253,4 +241,4 @@ function getChartOption(layoutProps) {
   };
   return options;
 }
-export default (TrafficFlowWidget)
+export default TrafficFlowWidget;
