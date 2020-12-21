@@ -28,11 +28,11 @@ export function SuggestionsWidget(props) {
           <table className="table table-borderless table-vertical-center">
             <thead>
               <tr className="text-left text-uppercase">
-                <th className="p-0" style={{ width: "50px" }}>
+                <th className="p-0" style={{ width: "400px" }}>
                   Recomendations
                 </th>
-                <th className="p-0" style={{ minWidth: "200px" }} />
-                <th className="p-0" style={{ minWidth: "100px" }} />
+                <th className="p-0" />
+                <th className="p-0" />
                 <th className="p-0" style={{ minWidth: "125px" }} />
                 <th className="p-0">Congestion</th>
 
@@ -46,7 +46,7 @@ export function SuggestionsWidget(props) {
                     <tr key={Suggestion.id}>
                       <td className="pl-0 py-4">
                         {" "}
-                        <span className="text-dark-75 font-weight-bolder d-block font-size-lg">
+                        <span className="text-dark-75  d-block font-size-lg">
                           {Suggestion.Description}
                         </span>
                       </td>
@@ -57,7 +57,7 @@ export function SuggestionsWidget(props) {
                       </td>
                       <td className="text-left">
                         <span className="text-dark-75 font-weight-bolder d-block font-size-lg">
-                          50 %
+                          {Suggestion.conjestion}
                         </span>
                       </td>
                       <td className="text-right pr-0">

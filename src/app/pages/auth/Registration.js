@@ -31,11 +31,10 @@ function Registration(props) {
       .max(50, "Maximum 50 symbols")
       .required(),
     password: Yup.string()
-      .min(3, "Minimum 3 symbols")
+      .min(6, "Minimum 6 symbols")
       .max(50, "Maximum 50 symbols")
       .required(),
-    changepassword: Yup.string()
-    .when("password", {
+    changepassword: Yup.string().when("password", {
       is: (val) => (val && val.length > 0 ? true : false),
       then: Yup.string().oneOf(
         [Yup.ref("password")],

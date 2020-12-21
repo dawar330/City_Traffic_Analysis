@@ -176,7 +176,7 @@ export class Reportingform extends React.Component {
                     <thead>
                       <tr className="text-left text-uppercase">
                         <th className="pl-7" style={{ minWidth: "250px" }}>
-                          <span className="text-dark-75">Lanes</span>
+                          <span className="text-dark-75">Lane ID</span>
                         </th>
                         <th style={{ minWidth: "100px" }}></th>
                         <th style={{ minWidth: "100px" }}></th>
@@ -185,41 +185,126 @@ export class Reportingform extends React.Component {
                       </tr>
                     </thead>
                     <tbody>
-                      {InitialData &&
-                        InitialData.lane_vs_congestion.foreach((item) => {
-                          return (
-                            <tr key={item[0]}>
-                              <td className="pl-0 py-8">
-                                <div className="d-flex align-items-center">
-                                  <div>
-                                    <a
-                                      href="#"
-                                      className="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg"
-                                    >
-                                      {item[0]}
-                                    </a>
-                                    <span className="text-muted font-weight-bold d-block"></span>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>
-                                <span className="text-dark-75 font-weight-bolder d-block font-size-lg"></span>
-                                <span className="text-muted font-weight-bold"></span>
-                              </td>
-                              <td>
-                                <span className="text-dark-75 font-weight-bolder d-block font-size-lg"></span>
-                                <span className="text-muted font-weight-bold"></span>
-                              </td>
-                              <td>
-                                <span className="text-dark-75 font-weight-bolder d-block font-size-lg">
-                                  {item[1]}
-                                </span>
-                                <span className="text-muted font-weight-bold"></span>
-                              </td>
-                              <td></td>
-                            </tr>
-                          );
-                        })}
+                      <tr>
+                        <td className="pl-0 py-8">
+                          <div className="d-flex align-items-center">
+                            <div>
+                              <a
+                                href="#"
+                                className="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg"
+                              >
+                                158494589#0
+                              </a>
+                              <span className="text-muted font-weight-bold d-block"></span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <span className="text-dark-75 font-weight-bolder d-block font-size-lg"></span>
+                          <span className="text-muted font-weight-bold"></span>
+                        </td>
+                        <td>
+                          <span className="text-dark-75 font-weight-bolder d-block font-size-lg"></span>
+                          <span className="text-muted font-weight-bold"></span>
+                        </td>
+                        <td>
+                          <span className="text-dark-75 font-weight-bolder d-block font-size-lg">
+                            100 %
+                          </span>
+                          <span className="text-muted font-weight-bold"></span>
+                        </td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td className="pl-0 py-8">
+                          <div className="d-flex align-items-center">
+                            <div>
+                              <a
+                                href="#"
+                                className="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg"
+                              >
+                                158494589#1
+                              </a>
+                              <span className="text-muted font-weight-bold d-block"></span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <span className="text-dark-75 font-weight-bolder d-block font-size-lg"></span>
+                          <span className="text-muted font-weight-bold"></span>
+                        </td>
+                        <td>
+                          <span className="text-dark-75 font-weight-bolder d-block font-size-lg"></span>
+                          <span className="text-muted font-weight-bold"></span>
+                        </td>
+                        <td>
+                          <span className="text-dark-75 font-weight-bolder d-block font-size-lg">
+                            95%
+                          </span>
+                          <span className="text-muted font-weight-bold"></span>
+                        </td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td className="pl-0 py-8">
+                          <div className="d-flex align-items-center">
+                            <div>
+                              <a
+                                href="#"
+                                className="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg"
+                              >
+                                158493318_0
+                              </a>
+                              <span className="text-muted font-weight-bold d-block"></span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <span className="text-dark-75 font-weight-bolder d-block font-size-lg"></span>
+                          <span className="text-muted font-weight-bold"></span>
+                        </td>
+                        <td>
+                          <span className="text-dark-75 font-weight-bolder d-block font-size-lg"></span>
+                          <span className="text-muted font-weight-bold"></span>
+                        </td>
+                        <td>
+                          <span className="text-dark-75 font-weight-bolder d-block font-size-lg">
+                            83 %
+                          </span>
+                          <span className="text-muted font-weight-bold"></span>
+                        </td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td className="pl-0 py-8">
+                          <div className="d-flex align-items-center">
+                            <div>
+                              <a
+                                href="#"
+                                className="text-dark-75 font-weight-bolder text-hover-primary mb-1 font-size-lg"
+                              >
+                                8679101#0_1
+                              </a>
+                              <span className="text-muted font-weight-bold d-block"></span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <span className="text-dark-75 font-weight-bolder d-block font-size-lg"></span>
+                          <span className="text-muted font-weight-bold"></span>
+                        </td>
+                        <td>
+                          <span className="text-dark-75 font-weight-bolder d-block font-size-lg"></span>
+                          <span className="text-muted font-weight-bold"></span>
+                        </td>
+                        <td>
+                          <span className="text-dark-75 font-weight-bolder d-block font-size-lg">
+                            85 %
+                          </span>
+                          <span className="text-muted font-weight-bold"></span>
+                        </td>
+                        <td></td>
+                      </tr>
                     </tbody>
                   </table>
                 </div>

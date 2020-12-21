@@ -58,9 +58,9 @@ export function ProfileOverview(props) {
           UserNotification={UserNotification}
         ></ListsWidget10>
       </div>
-      <div className="col-lg-12">
+      {/* <div className="col-lg-12">
         <AdvanceTablesWidget7 className="card-stretch gutter-b"></AdvanceTablesWidget7>
-      </div>
+      </div> */}
     </div>
   );
 }

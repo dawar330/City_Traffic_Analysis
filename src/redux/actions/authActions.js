@@ -25,8 +25,9 @@ export const signUp = (newUser) => {
           .collection("Users")
           .doc(resp.user.uid)
           .set({
-            Name: newUser.fullname,
+            firstname: newUser.fullname,
             UserName: newUser.username,
+            Email: newUser.email,
           });
       })
       .then(() => {
